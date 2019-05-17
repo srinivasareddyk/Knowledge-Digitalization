@@ -1,0 +1,230 @@
+<!DOCTYPE HTML>
+
+<html ng-app="fordApp">
+<head>
+<link rel="icon" href="/ChatBotUiWeb/assets/images/fordtitle.ico" type="image/x-icon"/>
+<title>Knowledge Digitalization</title>
+<meta charset="utf-8" />
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, max-scale=1, user-scalable=yes" />
+
+<link rel="stylesheet" href="assets/css/app/main.css" />
+
+<!--Angular Js  -->
+<script
+  src="https://code.jquery.com/jquery-3.3.1.js"
+  integrity="sha256-2Kok7MbOyxpgUVvAk/HJ2jigOSYS2auK4Pfzbm7uH60="
+  crossorigin="anonymous"></script>
+<!-- <script src="https://code.jquery.com/jquery-2.2.4.min.js"   integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
+ --><script src="https://code.angularjs.org/1.6.4/angular.js"></script>
+<script src="assets/js/lib/angular-route.js"></script>
+<script src="assets/js/lib/angular-translate.js"></script>
+<script src="assets/js/lib/angular-translate-loader-static-files.js"></script>
+<script src="assets/js/lib/angular-indexed-db.js"></script>
+<script src="assets/js/lib/lobibox.js"></script>
+
+<!-- Boostrap libs -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="assets/css/lib/lobibox.css" />
+<!-- Data Table Libs -->
+<link rel="stylesheet" href="assets/css/app/data-table-style.css" />
+<script data-require="ui-bootstrap@0.11.0" data-semver="0.11.0" src="https://angular-ui.github.io/bootstrap/ui-bootstrap-tpls-0.11.0.min.js"></script>
+
+<!-- Common Components -->
+<script data-require="lodash.js@3.10.0" data-semver="3.10.0" src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/3.10.0/lodash.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+
+<!-- Block UI Libs -->
+<!-- <link rel="stylesheet" type="text/css" href="http://angular-block-ui.nullest.com/angular-block-ui/angular-block-ui.css"> -->
+<link rel="stylesheet" type="text/css" href="assets/css/lib/angular-block-ui.css">
+
+<script type="text/javascript" src="assets/js/lib/angular-block-ui.js"></script>
+
+<!-- Application related JS -->
+<script src="assets/js/app/home_nav_app.js"></script>
+<script src="assets/js/app/custom_block_ui.js"></script>
+
+<!-- Configure Screens -->
+ <script src="assets/js/app/configScreens/config.js"></script>
+ <script src="assets/js/app/configScreens/configScreen.js"></script>
+ <script src="assets/js/app/configScreens/configModule.js"></script>
+ <script src="assets/js/app/configScreens/configSubModule.js"></script>
+ <script src="assets/js/app/DatabaseConfig/DatabaseConfig.js"></script>
+ 
+ <!-- Application Maintenance  -->
+<script src="assets/js/app/application/application_mod_app.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/ngStorage/0.3.11/ngStorage.js"></script>
+
+<!-- Configuration User Manual  -->
+<script src="assets/js/app/configUserManual/configUsrManual_mod_app.js"></script>
+
+<!-- Role Maintenance  -->
+<script src="assets/js/app/user/roleMaintenance.js"></script>
+<script src="assets/js/app/user/addRole_app.js"></script>
+<script src="assets/js/app/user/mapRole_app.js"></script>
+<script src="assets/js/app/user/user_manage_mod_app.js"></script>
+<script src="assets/js/app/user/user_request_mod_app.js"></script>
+<script src="assets/js/app/user/user_update_mod_app.js"></script>
+<script src="assets/js/app/sfh_mod_app.js"></script>
+
+<!--PDF Display  -->
+<script src="assets/js/lib/angular-pdf.js"></script>
+<script src="assets/js/lib/pdf.js"></script>
+
+<!-- Data Table  Js-->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-sanitize/1.7.0/angular-sanitize.js"></script>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.12.10/jszip.js"></script>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.12.10/xlsx.full.min.js"></script>
+   <script src="https://fastcdn.org/FileSaver.js/1.1.20151003/FileSaver.min.js"></script> 
+   <script src="dataTable/smart-table.js"></script>   
+   <script src="dataTable/smart-table.debug.js"></script>   
+   <script src="dataTable/customsearch-script.js"></script>
+   <script src="dataTable/pageSelect.directive.js"></script>
+   <script src="dataTable/dataTable-add-script.js"></script> 
+   <script src="dataTable/rowSelect.js"></script>
+   <script src="dataTable/rowSelectAll.js"></script>
+   <script src="dataTable/exportToExcel.js"></script>
+   <script src="dataTable/paginationCal.js"></script>
+   
+	
+	<!-- HighChart script -->
+   <script type="text/javascript" src="assets/js/lib/highcharts.js"></script>
+   <script src="https://code.highcharts.com/modules/exporting.js"></script>
+	
+	
+ <!-- Custom Tags -->
+ <script src="assets/js/app/customcomponents.js"></script>
+ 
+ <!-- Common Js -->
+ <script src="assets/js/app/common.js"></script>
+ <script src="assets/js/app/directive/limitTo.js"></script>
+ 
+  <script src="assets/js/app/Authenticate/index.js" type="text/javascript"></script>
+  <script src="assets/js/app/Authenticate/login.js" type="text/javascript"></script>
+
+<!-- Tree Structure -->
+<script>window.jQuery || document.write(decodeURIComponent('%3Cscript src="js/jquery-3.2.1.slim.min.js"%3E%3C/script%3E'))</script>
+    <link rel="stylesheet" href="assets/css/lib/dx.spa.css" />
+    <link rel="stylesheet" href="assets/css/lib/dx.common.css" />
+     <link rel="stylesheet" href="assets/css/lib/dx.light.css" />
+<script>window.angular || document.write(decodeURIComponent('%3Cscript src="js/angular.min.js"%3E%3C\/script%3E'))</script>
+   <script src="assets/js/lib/dx.all.js"></script>    
+    
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.1/angular-sanitize.js"></script>
+<!-- Custom App CSS -->
+<link rel="stylesheet" href="assets/css/app/customcomponents.css"></link>
+<script src="assets/js/app/user_manual_module_app.js"></script>
+
+</head>
+<body ng-app="fordApp">
+	
+	<div id="wrapper">
+		
+		<div id="main" ng-controller="homeController" ng-init="init()">
+			
+			<div class="inner"
+				style="background-image: url('assets/images/GSPPS_Banner.jpg')">
+				<div id="head">
+				<div ng-controller="userManualController"  style="background-image: url('assets/images/GSPPS_Banner.jpg')">
+<user-manual-directive ></user-manual-directive>
+</div>
+					<ul class="icons">
+					<li><span style="color:#215a8f;" ><span ng-if="security" class="icon fas fa-user label_custom"> Hi ,</span>{{userCdsid}}</span></li>
+					<li><div >
+							<img src="/ChatBotUiWeb/assets/images/US.svg" ng-click="changeLanguage('en')" style="width: 2em;height:1.25em" title="English" >
+							<img src="/ChatBotUiWeb/assets/images/CN.svg" ng-click="changeLanguage('ch')" style="width: 2em;height:1.25em" title="Chinese" >
+        				</div>
+        			</li>
+						<!-- <li><div ng-click="generateNotif()" class="icon fa-bell" style="color:#e2e23e;"><span class="label">Notifications</span></div></li> -->
+						<li><div ng-click="testnotifications()" class="icon fa-bell" style="color:#e2e23e;"><span class="badge" style="background-color: red !important;padding: 2px 3px !important;position: absolute;left: 10px;">{{notifyCount}}</span><span class="label">Notifications</span></div></li>
+						<li ng-if="security"><img src="/ChatBotUiWeb/assets/images/logout.ico" style="width: 20px;height: 20px;" title="Logout" ng-click="logout()"></li>
+						<li ng-if="!security"><img src="/ChatBotUiWeb/assets/images/login.jpg" style="width: 20px;height: 20px;" title="Login" ng-click="login()"></li>
+					</ul>
+					<!-- Header -->
+					<header id="header">
+						<a href="#!home" class="logo"><img
+							src="assets/images/Ford-Oval.png" alt=""
+							style="margin-top: -18px; !important;" /> </a>
+						<h4 style="padding-left: 1em; padding-right: 1em;color: #2158af;" class="mobile">&nbsp;&nbsp;&nbsp;Knowledge Digitalization</h4>
+						<h3 style="padding-left: 1em; padding-right: 1em;color: #2158af;" class="desktop">&nbsp;&nbsp;&nbsp;Knowledge Digitalization</h3>
+						<h4 style="padding-left: 1em; padding-right: 1em;color: #2158af;" class="tablet">&nbsp;&nbsp;&nbsp;Knowledge Digitalization</h4>
+					</header>
+				</div>
+			</div>
+	<!-- Content -->		
+			<div>
+				<section>
+					<div ng-view></div>
+				</section>
+			</div>
+		</div>
+
+		<!-- Sidebar -->
+		<div id="sidebar" ng-controller="homeController">
+			<div class="inner">
+			<!-- Menu -->
+				<nav id="menu">
+					<header class="major" id="menuTitle">
+						<h2>Menu</h2>
+					</header>
+					<ul>
+
+						<li id="menuFonts"><a href="#!home"><span class="icon far fa-home control-label"> Home page</span></a></li>
+						<li ng-if="security"><a href="#!configure"><span class="icon far fa-share-alt control-label"> Configure Application</span></a></li>
+						<li ><span class="opener" ng-show="security"> <span  class="icon far fa-user-plus control-label"> User/Role Maintenance</span></span>
+							<ul>
+								<!-- <li ng-if="security"><a href="#!user/User Registration"><span class="icon far fa-user-plus control-label"> User Registration</span></a></li> -->
+								<li ng-if="security"><a href="#!requestUserSearch/New User Request"><span class="icon fal fa-link control-label"> New User Request</span></a></li>
+								<li ng-if="security"><a href="#!manageUserSearch/Manage Users"><span class="icon fal fa-link control-label"> Manage Users</span></a></li>
+								<li ng-if="security"><a href="#!updateUserDetails/Update Profile"><span class="icon fal fa-link control-label"> Update Profile</span></a></li>
+								<li ng-if="security"><a href="#!roleMaintenance"><span class="icon fal fa-link control-label"> Role Maintenance</span></a></li>
+							</ul>
+						</li>
+						<li ng-if="security"><a href="#!configUsrManual"><span class="icon far fa-laptop control-label"> Configure Audio & Tool Tip Help</span></a></li>
+						<li ng-if="security"><a href="#!sfh/Configure User Manual & Videos"><span class="icon far fa-laptop control-label">Configure User Manual & Videos </span></a></li>
+						
+					</ul>
+				</nav>
+
+
+
+				<!-- Footer -->
+				<footer id="footer">
+					<p class="copyright">
+						&copy; 2019 Ford Motor Company | All rights reserved. <a
+							href="https://www.ford.com"></a>.
+					</p>
+				</footer>
+
+			</div>
+		</div>
+
+	</div>
+
+<script src="assets/js/app/Authenticate/app.js"></script>
+<script>
+(function(){
+	var p=document.createElement('script');
+	p.type='text/javascript';
+	p.async=true;
+	p.src='https://apis.google.com/js/client.js?onload=onloadFunction';
+	var s=document.getElementsByTagName('script')[0];
+	s.parentNode.insertBefore(p,s);
+	
+})();
+
+</script>
+	<!-- Scripts -->
+	<script src="assets/js/lib/jquery.min.js"></script>
+	<script src="assets/js/lib/skel.min.js"></script>
+	<script src="assets/js/lib/util.js"></script>
+	<script src="assets/js/lib/main.js"></script>
+	<script src="assets/js/lib/angular-web-notification.js"></script>
+	<script src="assets/js/lib/web-notification.js"></script>
+
+</body>
+</html>

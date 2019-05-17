@@ -1,0 +1,147 @@
+<div ng-controller="loginController" ng-init="init()">
+
+
+	<style>
+#box {
+	font-family: 'Open Sans', sans-serif;
+	background:;
+	margin: 0 auto 0 auto;
+	width: 100%;
+	text-align: center;
+	margin: 20px 0px 20px 0px;
+}
+
+/* p{
+  font-size:12px;
+  text-decoration: none;
+  color:#ffffff;
+} */
+h1.className {
+	font-size: 1.5em;
+	color: #525252;
+}
+
+.box {
+	background: white;
+	width: 300px;
+	border-radius: 6px;
+	margin: 0 auto 0 auto;
+	padding: 0px 0px 70px 0px;
+	border: #2980b9 4px solid;
+}
+
+.emailsample {
+	background: #ecf0f1;
+	border: #ccc 1px solid;
+	border-bottom: #ccc 2px solid;
+	padding: 8px;
+	width: 250px;
+	color: #AAAAAA;
+	margin-top: 10px;
+	font-size: 1em;
+	border-radius: 4px;
+}
+
+.passwordsample {
+	border-radius: 4px;
+	background: #ecf0f1;
+	border: #ccc 1px solid;
+	padding: 8px;
+	width: 250px;
+	font-size: 1em;
+}
+
+.btnSample {
+	background: #337ab7;
+	width: 125px;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	color: white;
+	border-radius: 4px;
+	border: #337ab7 1px solid;
+	margin-top: 20px;
+	margin-bottom: 20px;
+	float: left;
+	margin-left: 16px;
+	font-weight: 800;
+	font-size: 0.8em;
+}
+
+.btnSample:hover {
+	background: #2CC06B;
+}
+
+/* #btn2{
+  float:left;
+  background:#3498db;
+  width:125px;  padding-top:5px;
+  padding-bottom:5px;
+  color:white;
+  border-radius:4px;
+  border: #2980b9 1px solid;
+  
+  margin-top:20px;
+  margin-bottom:20px;
+  margin-left:10px;
+  font-weight:800;
+  font-size:0.8em;
+}
+ */
+.btn3 {
+	background: #337ab7;
+	width: 100px;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	color: white;
+	border-radius: 4px;
+	border: #337ab7 1px solid;
+	margin-top: 7%;
+	margin-bottom: 20px;
+	float: left;
+	margin-left: 16px;
+	font-weight: 800;
+	font-size: 0.8em;
+}
+
+#btn2:hover {
+	background: #3594D2;
+}
+</style>
+
+	<form id="box">
+		<div class="box">
+			<h1 class="className">Login</h1>
+			<br>
+			<div class="col-xs-8 col-sm-8 col-md-12 col-lg-12"
+				style="padding-left: 10px; padding-right: 10px;">
+				<div id="msgs_req_leng_err" ng-click="reqErrMsg=null"
+					class="alert alert-danger icon far fa-times" role="alert"
+					data-ng-show="reqErrMsg">
+					<span class="label_custom">{{ reqErrMsg }} <a class="clear"
+						ng-click="reqErrMsg=null"> <!-- <span
+							class="alertCancel glyphicon glyphicon-remove"></span> --></a>
+					</span>
+
+				</div>
+			</div>
+
+			<input type="text" name="username"
+				style="width: 70%; height: 2.75em; margin-left: 20px; margin-right: 80;"
+				ng-model="userName" placeholder="Username" class="emailsample" required />
+
+			<input type="password" name="password"
+				style="width: 70%; height: 2.75em; margin-left: 20px; margin-right: 80;"
+				ng-model="password" placeholder="Password" class="emailsample"
+				required /> </br>
+
+
+			<button class="btn btnSample btn-lg btn-primary btn-block"
+				type="submit" ng-click="login()">Login</button>
+			<a href="#!/user/:screenName">
+				<button class="btn3 btnSample" type="submit">Sign up</button>
+			</a>
+		</div>
+		<!-- End Box -->
+
+	</form>
+</div>

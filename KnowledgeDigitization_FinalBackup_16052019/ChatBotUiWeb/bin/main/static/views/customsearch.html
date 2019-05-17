@@ -1,0 +1,100 @@
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item active" aria-current="page">Home &nbsp; / &nbsp; Data Table Sample</li>
+  </ol>
+</nav>  
+
+
+<div class="container" >
+	<div class="row">
+		<div class="col-1"></div>
+		<div class="col">
+			<div ng-controller="dataTableLayout" class="table-responsive">
+
+				<div class="table-responsive">
+					<table st-set-filter="customFilter" st-table="displayed"
+						st-safe-src="collection"
+						class="table table-bordered table-striped ">
+
+						<thead>
+							<tr>
+								<th st-sort="firstName" scope="col">First Name</th>
+								<th st-sort="lastName" scope="col">Last Name</th>
+								<th st-sort="nationality" scope="col">Nationality</th>
+								<th st-sort="education" scope="col">Education</th>
+
+								<th st-sort="firstName" scope="col">First Name</th>
+								<th st-sort="lastName" scope="col">Last Name</th>
+								<th st-sort="nationality" scope="col">Nationality</th>
+								<th st-sort="education" scope="col">Education</th>
+
+								<th st-sort="firstName" scope="col">First Name</th>
+								<th st-sort="lastName" scope="col">Last Name</th>
+								<th st-sort="nationality" scope="col">Nationality</th>
+								<th st-sort="education" scope="col">Education</th>
+								
+								<th st-sort="firstName" scope="col">First Name</th>
+								<th st-sort="lastName" scope="col">Last Name</th>
+								<th st-sort="nationality" scope="col">Nationality</th>
+								<th st-sort="education" scope="col">Education</th>
+
+							</tr>
+							<tr>
+								<th scope="row"><input type="text" placeholder="" st-search="firstName" />
+								</th>
+								<th scope="row"><input type="text" placeholder="" st-search="lastName" />
+								</th>
+								<th><st-select-distinct collection="collection"
+										predicate="nationality"></st-select-distinct></th>
+								<th scope="row"><st-select-distinct collection="collection"
+										predicate="education"></st-select-distinct> <!-- <st-select-multiple collection="collection" predicate="education"></st-select-multiple> -->
+								</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="row in displayed">
+
+								<td scope="row">{{row.firstName}}</td>
+								<td>{{row.lastName | uppercase}}</td>
+								<td>{{row.nationality}}</td>
+								<td>{{row.education}}</td>
+
+								<td>{{row.firstName}}</td>
+								<td>{{row.lastName | uppercase}}</td>
+								<td>{{row.nationality}}</td>
+								<td>{{row.education}}</td>
+
+								<td>{{row.firstName}}</td>
+								<td>{{row.lastName | uppercase}}</td>
+								<td>{{row.nationality}}</td>
+								<td>{{row.education}}</td>
+								
+								<td>{{row.firstName}}</td>
+								<td>{{row.lastName | uppercase}}</td>
+								<td>{{row.nationality}}</td>
+								<td>{{row.education}}</td>
+						</tbody>
+
+						<tfoot>
+							<tr>
+
+								<td colspan="12">
+									<div class="" st-items-by-page="10" st-pagination=""
+										st-template="views/pagination.custom.html"></div>
+
+								</td>
+
+							</tr>
+						</tfoot>
+					</table>
+				</div>
+			</div>
+
+
+		</div>
+		<!-- <div class="col-1"></div> -->
+	</div>
+</div>
+
+ 
+  

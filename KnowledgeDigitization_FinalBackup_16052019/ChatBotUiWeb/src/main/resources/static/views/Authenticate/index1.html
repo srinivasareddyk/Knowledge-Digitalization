@@ -1,0 +1,214 @@
+
+  
+ 
+
+<div  ng-controller="DaController">
+
+
+
+
+
+<style>
+
+
+/* .h3,h3 {
+    text-align: -webkit-left;
+    padding-right: 1em;
+    color: #3a62b1;
+} */
+
+
+    .container {
+  font-family: 'Open Sans', sans-serif;
+  background:;
+  margin: 0 auto 0 auto;  
+  width:100%; 
+  text-align:center;
+  margin: 10px 0px 20px 0px;   
+}
+
+
+#logreg .google-btn{ background-color: #DF4B3B; }
+
+#logreg {
+    width:390px;
+    margin:0 auto;
+    margin-bottom: 14px;
+}
+#logreg .social-btn{
+    font-weight: 100;
+    color:white;
+    width:190px;
+    font-size: 1.4rem;
+}
+
+/* #header{
+
+text-align:left;
+}
+
+#header {
+    padding-top: 9px;
+} */
+
+.login-container{
+    margin-top: 5%;
+    margin-bottom: 5%;
+}
+.login-form-1{
+   /*  padding: 12.6%; */
+    height: 270px;
+    box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 9px 26px 0 rgba(0, 0, 0, 0.19);
+}
+.login-form-1 h1{
+    text-align: center;
+    color: #333;
+}
+.login-form-2{
+     /* padding: 9.3%; */
+      background: #0062cc;
+      height: 270px;
+    box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 9px 26px 0 rgba(0, 0, 0, 0.19);
+     /*  padding: 4.7%; 
+    background: #0062cc;
+    box-shadow: 0 5px 8px 0 rgba(0, 0, 0, 0.2), 0 9px 26px 0 rgba(0, 0, 0, 0.19);  */
+ 
+}
+
+ul.icons{
+color:white;
+
+}
+
+img{
+text-align: left;
+
+}
+
+.userbtn{
+background-color:#ed1d25;
+
+
+}
+
+#user.google-btn{ background-color: #ffff; }
+
+#user {
+    width:390px;
+    margin:0 auto;
+    margin-bottom: 14px;
+}
+#user .social-btn{
+    font-weight: 100;
+    color:white;
+    width:190px;
+    font-size: 1.4rem;
+}
+#banner .image img {
+	height: 100%;
+	-moz-object-fit: cover;
+	-webkit-object-fit: cover;
+	-ms-object-fit: cover;
+	object-fit: cover;
+	-moz-object-position: center;
+	-webkit-object-position: center;
+	-ms-object-position: center;
+	object-position: center;
+	width: 100%;
+}
+#header .icons {
+		height: 5em;
+		line-height: 5em;
+		position: absolute;
+		right: -0.5em;
+		top: 0;
+		margin-top: 1em;
+	}
+</style>
+
+
+<!-- <nav  class="navbar navbar-dark bg-primary" role="navigation">
+  <div class="container-fluid">
+  
+      <ul class="nav navbar-nav navbar-right">
+        <li><p class="navbar-text">{{user}}</p></li>
+        <li class="dropdown">
+          <a href="#!/index" class="dropdown-toggle" data-toggle="dropdown"><b style="color:white">Login</b></a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav> -->
+<!-- <div class="inner"
+				style="background-image: url('assets/images/GSPPS_Banner.jpg');font-size:10px;line-height: 1px;">
+				<div id="head">
+					<ul class="icons">
+					<li><span style="color:#215a8f; text-align:right; class="icon fas fa-user label_custom"> Hi ,{{userCdsid}}</span></li>
+					<li><div >
+							<img src="img/US.svg" ng-click="changeLanguage('en')" style="width: 2em;height:1.25em" title="English" >
+							<img src="img/CN.svg" ng-click="changeLanguage('ch')" style="width: 2em;height:1.25em" title="Chinese" >
+        				</div>
+        			</li>
+						<li><div ng-click="generateNotif()" class="icon fa-bell" style="color:#e2e23e;"><span class="label">Notifications</span></div></li>
+						
+						
+					</ul>
+					Header
+					
+					<header id="header">
+					
+						<a id="ri" href="#!" class="logo"><img
+							src="assets/images/Ford-Oval.png" alt=""
+							style="margin-top: 20px; !important;" /> </a>
+						
+						 
+						<h3 style="padding-left: 150px;height:80px;width:474px;margin-top:-35px; padding-right: 1em;color: #2158af;" class="desktop">&nbsp;&nbsp;&nbsp;Digital Assistant</h3>
+						
+						
+					</header>
+					
+				</div>
+			</div>
+ -->
+
+<div class="containerSample  login-container"  ng-init="init()">
+            <div class="row">
+<div class="col-xs-12 col-sm-12 col-md-6 col-lg-6  login-form-1" >
+
+<!-- <img  style="padding-left: 89px;padding-bottom:20px;"src="assets/images/fordoval.png"> -->
+<h1 style="margin-top: 120px;">DIGITAL ASSISTANT</h1>
+</div>
+
+
+ <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 login-form-2">
+ <div id="user" style="margin-top: 100px;margin-left:150px;">
+<a href="#!login"><button class="userbtn" style="height:30px;" type="button" "><i class="fa fa-user" aria-hidden="true"></i>&nbsp;&nbsp;User Login </button></a>
+
+<!-- <a href="#!login"><h4 ng-click="google()" style="color:white">User Login</h4></a> -->
+ 
+ <!--  <button id="b" type="submit">Login</button> -->
+<!-- <input type="button" ng-click="googleLogin()" value="Google Login"/> -->
+
+<br><br>
+<div id="logreg">
+<button class="google" style="padding-right:10;height:30px;text-align:left;" type="button" ng-click="googleLogin()"><span><i class="fab fa-google-plus-g"></i>Google SignIn</span> </button>
+</div >
+
+</div>
+</div>
+</div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+

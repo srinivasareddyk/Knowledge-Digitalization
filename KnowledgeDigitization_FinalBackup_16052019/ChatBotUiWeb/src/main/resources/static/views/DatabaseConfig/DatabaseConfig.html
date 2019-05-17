@@ -1,0 +1,285 @@
+<div ng-controller="DbconfigController">
+<div class="container" style="background: none !important;" >
+	<div class="row" id ="messages">
+	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="padding-left: 0px; padding-right: 0px;" >
+		<div id="messages_save_succ" class="alert alert-success icon far fa-check" role="alert" data-ng-show="succMessage" ><span class="label_custom">{{ succMessage }}</span>
+				<a class="clear" ng-click="succMessage=null"> 
+					<span  class="alertSuccess glyphicon glyphicon-remove"></span></a>
+		</div>
+	</div>
+	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="padding-left: 0px; padding-right: 0px;" data-ng-show="reqErrs" ng-repeat="err in reqErrs track by $index"  >
+		<div id="messages_frm_server" class="alert alert-danger icon far fa-times" role="alert" data-ng-show="err" >
+		<span class="label_custom">{{ err }}</span><a class="clear"  ng-click="clearErrorArray($index)"> 
+     <span  class="alertCancel glyphicon glyphicon-remove"></span></a>
+		</div>
+		</div>
+		
+		       	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="padding-left: 0px; padding-right: 0px;" data-ng-show="missErrMsgArry" ng-repeat="errs in missErrMsgArry track by $index"  >
+		<div id="messages_frm_servermiss" class="alert alert-danger icon far fa-times" role="alert" data-ng-show="errs" >
+		<span class="label_custom">{{ errs }}</span><a class="clear"  ng-click="missclearErrorArray($index)"> 
+     <span  class="alertCancel glyphicon glyphicon-remove"></span></a>
+		</div>
+		</div>
+	
+	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="padding-left: 0px; padding-right: 0px;" >
+		<div id="msgs_req_leng_err" class="alert alert-danger icon far fa-times" role="alert" data-ng-show="reqErrMsg" ><span class="label_custom">{{ reqErrMsg }}</span>
+				<a class="clear" ng-click="reqErrMsg=null"> 
+					<span  class="alertCancel glyphicon glyphicon-remove"></span></a>
+		</div>
+	</div>
+
+	
+</div>
+</div>
+<div ng-init="init()">
+
+<!-- Search Component -->	
+<div class="container drop-shadow" >
+ <div  class="row" >
+ 
+ 
+	<div class="col-xs-12 col-sm-3 col-md-3 col-lg-3 col_custom">
+   		<span class="label_custom">{{'dbConfig.itmsNo.label '| translate}}</span>
+   		
+   		 	<multiselect select-items="selecteditmsNo" data="dbvo.listitmsNo"
+                                  check-id="itmsno"></multiselect>
+			
+ 	</div>	
+   		 
+ 	<div class="col-xs-12 col-sm-3 col-md-3 col-lg-3 col_custom">
+    	<span class="label_custom">{{'dbConfig.applicationName.label'|translate}}</span>
+    	<input type="text" list="autocompletedb" ng-model="applicationNameS"  class="form-control input-xxlarge" ng-keyup="autoComplete(applicationNameS)"/>
+        
+        <datalist id="autocompletedb">
+         <option class="form-control" ng-repeat="appname in AppNameList track by $index" ng-click="fillTextbox(appname)">{{appname}}</option>
+          
+        </datalist>
+
+	</div>
+	
+	<div class="col-xs-12 col-sm-3 col-md-3 col-lg-3 col_custom">
+   		<span class="label_custom">{{'dbConfig.databaseType.label'|translate}}</span>
+	
+
+	<multiselect select-items="selecteddbType" data="dbvo.listdatabaseType"
+                                  check-id="dbtype"></multiselect>
+
+ 	</div>
+ 	
+ 	
+ 	
+ 		<div class="col-xs-12 col-sm-3 col-md-3 col-lg-3 col_custom">
+ 	<span class="label_custom">{{'dbconfig.databaseName.label'|translate}}</span>
+	
+
+	<multiselect select-items="selecteddbName" data="dbvo.listdatabaseName"
+                                  check-id="dbname"></multiselect>
+ 	</div>	
+ 	</div>
+
+</div>  
+ 
+</div>
+<div class="row" style="margin-top: 1em;margin-bottom: 1em;">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="text-align: center;">
+    <button type="button" class="btn glass" ng-click="searchDbConfig()"  style="margin-top: 0.5em;">
+		<span class="icon far fa-search"></span> Search
+		</button>
+			   <button type="button" class="btn glass" ng-click="refreshData()"  style="margin-top: 0.5em;">
+		<span class="icon fas fa-retweet"></span> Refresh
+		</button>
+    </div>
+    </div>
+
+
+ <!-- Data Table Start -->
+ <div class="container drop-shadow" style="margin-top: 15px;padding-bottom: 9px;" >
+  <div  class="table-responsive">
+
+				<div class="table-responsive" >
+					<table st-set-filter="customFilter" st-table="data"
+						st-safe-src="rowCollection"
+						class="table table-bordered table-striped" >
+
+						<thead>
+							<tr>
+							<th row-select-all="rowCollection" selected="selected" ng-click="selectAll(rowCollection)"></th>
+								<th scope="col" style="text-align:center">Line No.</th>
+								<th st-sort="itmsNo" scope="col" style="text-align:center">ITMS No<span ng-show="asteriskFlag"style="color: red">*</span></th>
+								<th st-sort="applicationName" scope="col" style="text-align:center">Application Name</th>
+								<!-- <th st-sort="applicationAcronym" scope="col" style="text-align:center">Application Acronym</th> -->
+								<th st-sort="databaseType" scope="col" style="text-align:center">Database Type<span ng-show="asteriskFlag"style="color: red">*</span></th>
+								<th st-sort="hostName" scope="col" style="text-align:center">Host Name<span ng-show="asteriskFlag" style="color: red">*</span></th>
+								<th st-sort="ipAddress" scope="col" style="text-align:center">IP Address<span ng-show="asteriskFlag" style="color: red">*</span></th>
+								<th st-sort="portNumber" scope="col" style="text-align:center">Port No<span ng-show="asteriskFlag" style="color: red">*</span></th>
+								<th st-sort="driverName" scope="col" style="text-align:center">Driver Name<span ng-show="asteriskFlag" style="color: red">*</span></th>
+								<th st-sort="databaseName" scope="col" style="text-align:center">Database Name<span ng-show="asteriskFlag" style="color: red">*</span></th>
+								<th st-sort="userName" scope="col" style="text-align:center">User Name<span ng-show="asteriskFlag" style="color: red">*</span></th>
+								<th st-sort="password" scope="col" style="text-align:center">Password<span ng-show="asteriskFlag" style="color: red">*</span></th>
+								<th st-sort="createdDateAndTime" scope="col" style="text-align:center">Created Date</th>
+								<th st-sort="lastUpdatedDateAndTime" scope="col" style="text-align:center">Last Updated Date</th>
+							</tr>					
+							
+						</thead>
+						<tbody>
+							<tr ng-repeat="row in data" >
+								<td row-select="row" ng-click="select(row.id)"	selectdt="row.selected"></td>
+								<td scope="row">{{row.id}}</td>
+								
+					
+                                <td ng-if="(!dataadd && !row.selected)  || (row.selected && !dataadd)">{{row.itmsNo}}</td>																
+								<td ng-if="dataadd || (row.selected && dataadd )"><select ng-model="row.itmsNo" class="form-control classic" ng-options="p as p for p in itmsNoData" ng-change="onChangeItmsNo(row)">
+								   <option value="">Please Select</option> 
+								</select>
+								</td>
+								 
+                                   <td ng-if="(!dataadd && !row.selected)  || (row.selected && !dataadd)">{{row.applicationName}}</td>																
+								<td ng-if="dataadd || (row.selected && dataadd )"><input type="text"
+					ng-model="row.applicationName"  readonly="true"
+					name="row.applicationName" class="form-control input-xxlarge"  maxlength="50"/>
+								</td>
+								
+								
+							<!-- 	<td ng-if="(!dataadd && !row.selected)  || (row.selected && !dataadd)">{{row.applicationAcronym}}</td>																
+								<td ng-if="dataadd || (row.selected && dataadd )"><input type="text"
+					ng-model="row.applicationAcronym"  readonly="true"
+					name="row.applicationAcronym" class="form-control input-xxlarge"  maxlength="50"/>
+								</td>
+						 -->
+															
+								<td ng-if="!rowadd && !row.selected">{{row.databaseType}}</td>
+								<td  ng-if="rowadd || row.selected"><select ng-model="row.databaseType" class="form-control classic" ng-options="p as p for p in databaseTypeData">
+								   <option value="">Please Select</option> 
+								</select></td>
+								
+								
+								<td ng-if="!rowadd && !row.selected">{{row.hostName}}</td>
+								<td ng-if="rowadd || row.selected"><input style="width:145px !important;" type="text" ng-model="row.hostName" maxlength="100" class="form-control input-xxlarge" /></td>
+								
+								<td ng-if="!rowadd && !row.selected">{{row.ipAddress}}</td>
+								<td ng-if="rowadd || row.selected"><input style="width:145px !important;" type="text" ng-model="row.ipAddress" maxlength="15" class="form-control input-xxlarge" /></td>
+								
+								
+								<td ng-if="!rowadd && !row.selected">{{row.portNumber}}</td>
+								<td ng-if="rowadd || row.selected"><input style="width:145px !important;" type="text" ng-model="row.portNumber" maxlength="5" size="5" class="form-control input-xxlarge" /></td>
+								
+								
+								<td ng-if="!rowadd && !row.selected">{{row.driverName}}</td>
+								<td ng-if="rowadd || row.selected"><input style="width:145px !important;" type="text" ng-model="row.driverName" maxlength="250" class="form-control input-xxlarge" /></td>
+								
+								
+								<td ng-if="!rowadd && !row.selected">{{row.databaseName}}</td>
+								<td ng-if="rowadd || row.selected"><input style="width:145px !important;" type="text" ng-model="row.databaseName" maxlength="50" class="form-control input-xxlarge" /></td>
+								
+								
+								<td ng-if="!rowadd && !row.selected">{{row.userName}}</td>
+								<td ng-if="rowadd || row.selected"><input style="width:145px !important;" type="text" ng-model="row.userName" maxlength="8" class="form-control input-xxlarge" /></td>
+								
+								
+								<td ng-if="!rowadd && !row.selected">{{row.password}}</td>
+								<td ng-if="rowadd || row.selected"><input style="width:145px !important;" type="text" ng-model="row.password" maxlength="25" class="form-control input-xxlarge" /></td>
+								
+								<td>{{row.createdDateAndTime| date:'dd/MM/yyyy'}}</td>
+								<td>{{row.lastUpdatedDateAndTime | date:'dd/MM/yyyy'}}</td>
+								
+								
+						</tbody>
+
+						<tfoot>
+							<tr>
+
+								<td colspan="14">
+									<div class="" st-items-by-page="5" st-pagination=""
+										st-template="views/pagination.custom.html"></div>
+           <div style="text-align: right;padding-top: 0.3em;"><span>Total Records : {{ rowCollection.length }}</span> </div>
+								</td>
+
+							</tr>
+						</tfoot>
+					</table>
+				</div>
+			</div>
+<!-- Data Table Start -->
+
+</div>
+<div class="row" style="margin-top: 1em;margin-bottom: 1em;">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="text-align: center;">
+    <button type="button" class="btn glass" ng-click="saveData(data)"  style="margin-top: 0.5em;">
+		<span class="icon fas fa-save"></span> Save
+		</button>
+		<button type="button" class="btn glass" ng-click="addNewRowCntrl()"  style="margin-top: 0.5em;">
+		<span class="icon fas fa-plus"></span> Add Row
+		</button>
+	
+		<button type="button" class="btn glass" ng-click="downloadExcel()" style="margin-top: 0.5em;">
+		<span class="icon fas fa-angle-double-down"></span> Export To Excel
+		</button>
+		<button type="button" class="btn glass" ng-click="uploadTemplate()"  style="margin-top: 0.5em;">
+		<span class="icon fas fa-upload"></span> Import Excel
+		</button>
+		<button type="button" class="btn glass" ng-click="downloadTemplate()"  style="margin-top: 0.5em;">
+		<span class="icon fas fa-arrow-down"></span> Download Template
+		</button>
+    </div>
+    </div>
+
+
+
+
+ <div  id="uploadModal" class="modal fade" role="dialog">
+              <div class="modal-dialog">
+                     <div class="modal-content">
+                           <div class="modal-header">
+                                  <div class="row">
+                                         <div class="col">
+                                                <span></span>
+                                                <h4 class="modal-title">File upload</h4>
+                                         </div>
+                                         <div class="col" style="margin-left: 34.2em; margin-top: -1.2em;">
+                                                <span class="icon far fa-times" data-dismiss="modal" ng-click="clearFile()"></span>
+                                         </div>
+                                  </div>
+                           </div>
+                           <div class="modal-body">
+                                  <div class="row">
+                                         <div class="col">
+
+                                                <input type="file" id="single" ng-model="file" name="single"
+                                                       uploader="uploader"
+                                                       onchange="angular.element(this).scope().getExcelFileDetails(this)" />
+
+                                         </div>
+                                  </div>
+
+                                  <div class="row">
+                                         <div class="col"></div>
+                                         <div class="col">
+                                                <button type="submit" class="btn glass"
+                                                       ng-click="excelUploadFile()" style="margin-top: 2em;">Upload</button>
+                                                <button type="button" class="btn glass" data-dismiss="modal"
+                                                       style="margin-top: 2em;" ng-click="clearFile()">Close</button>
+                                         </div>
+
+                                  </div>
+
+                                  <div class="row" ng-if="SingleMessage!=null && SingleMessage!=''">
+                                         <div class="col">
+                                                <p data-ng-show="SingleMessage" style="color: green;">{{SingleMessage}}</p>
+
+                                         </div>
+                                         
+                                         
+                                    </div>     
+
+                         
+                                         <div class="row" ng-if="errmsg!=null && errmsg!=''">
+                                         <div class="col">
+                                                <p data-ng-show="errmsg" style="color: red;">{{errmsg}}</p>
+
+                                         </div>
+                                  </div>
+                     </div>
+              </div>
+       </div>
+</div>
+</div>

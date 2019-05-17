@@ -1,0 +1,101 @@
+
+<nav aria-label="breadcrumb">
+	<ol class="breadcrumb">
+		<li class="breadcrumb-item active" aria-current="page">Home
+			&nbsp; / &nbsp; Data Table Sample</li>
+	</ol>
+</nav>
+
+<div ng-controller="editCtrlLayout">
+	<!-- Search Button -->
+	<div class="container">
+		<div class="row " style="margin-top: 1em;">
+
+			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12"
+				style="text-align: center;">
+				<button type="button" class="btn glass" ng-click="srchDataTable()">
+					<span class="icon far fa-search"></span> Search
+				</button>
+			</div>
+
+		</div>
+	</div>
+
+
+<div ng-if="data.length>0">
+	<table st-set-filter="customFilter" st-table="data"
+		st-safe-src="rowCollection" class="table table-striped">
+
+		<thead>
+			<tr>
+				<th row-select-all="data" selected="selected"
+					ng-click="selectAll(data)"></th>
+				<th st-sort="id">id</th>
+				<th st-sort="firstName">first name</th>
+				<th st-sort="lastName">last name</th>
+				<!-- <th st-sort="birthdate">birth date</th>
+		<th st-sort="balance">balance</th> -->
+			</tr>
+			<tr>
+				<th>
+				<td></td>
+				</th>
+				<th><input placeholder="" st-search="firstName" /></th>
+				<th><input placeholder="" st-search="lastName" /></th>
+				<!--   <th>
+            <input placeholder="" st-search="birthdate"/>
+          </th>
+          <th>
+            <input placeholder="" st-search="balance"/>
+          </th> -->
+			</tr>
+		</thead>
+		<tbody>
+
+			<tr ng-repeat="row in data">
+				<td row-select="row" ng-click="select(row.id)"
+					selectdt="row.selected"></td>
+				<td>{{row.id}}</td>
+				<td ng-if="!dataadd && !row.selected">{{row.firstName}}</td>
+				<td ng-if="dataadd || row.selected"><input type="text"
+					class="form-control" ng-model="row.firstName" /></td>
+				<td ng-if="!dataadd && !row.selected">{{row.lastName}}</td>
+				<td ng-if="dataadd || row.selected"><input type="text"
+					class="form-control" ng-model="row.lastName" /></td>
+				<!--  <td ng-if="!dataadd && !row.selected">{{row.birthdate}}</td>
+          <td ng-if="dataadd || row.selected"><input type="text" class="form-control" ng-model="row.birthdate"/></td>
+          <td ng-if="!dataadd && !row.selected">{{row.balance}}</td>
+          <td ng-if="dataadd || row.selected"><input type="text" class="form-control" ng-model="row.balance"/></td>  -->
+			</tr>
+		</tbody>
+		<tfoot>
+			<tr>
+				<td colspan="6" class="text-center">
+					<div st-items-by-page="10" st-pagination=""
+						st-template="views/pagination.custom.html"></div>
+
+				</td>
+			</tr>
+		</tfoot>
+
+
+	</table>
+    				 <button type="button" class="btn glass" ng-click="downloadExcel(data)">ExportExcel</button> 
+	<div class="form-group">
+		<!-- <input type="submit" class="btn btn-primary addnew pull-right" value="Add New">
+                                <input ng-hide="!vm.data.length" type="button" class="btn btn-danger pull-right" ng-click="remove()" value="Remove">
+                                 -->
+		<input type="button" ng-click="addNew()"
+			class="btn btn-primary addnew pull-right" value="Add">
+		</button>
+		<input type="button" ng-click="save(data)"
+			class="btn btn-primary addnew pull-right" value="save">
+		</button>
+
+	</div>
+	
+	</div>
+	<!--  </form>  -->
+
+	Selected: {{selected}}
+</div>

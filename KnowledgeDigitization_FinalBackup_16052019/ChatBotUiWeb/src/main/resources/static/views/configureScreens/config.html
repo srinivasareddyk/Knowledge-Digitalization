@@ -1,0 +1,92 @@
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <!-- <li class="breadcrumb-item active" aria-current="page">{{pageNav}}</li> -->
+    <li><a href="#"><span style="color:#2158af" class="label_custom">Home</span></a></li>
+  	<li class="active"><span class="breadcrumFont label_custom" >Conifgure Application</span></li>
+   </ol>
+</nav>
+<div class="container drop-shadow">
+<div class="row">
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+<div class="row">	
+<div class="col">
+			<label class="switch"> <input type="checkbox" checked
+				ng-click="toggleEvent1()" ng-model="configApp"> <span
+				class="slider round"></span>
+			</label> 
+			</div>
+			<div class="col">
+			<span class="label_custom">Application</span>
+			</div>
+				<div class="col">
+			<label class="switch"> <input type="checkbox"
+				ng-click="toggleEvent3()" ng-model="configDB"> <span
+				class="slider round"></span>
+			</label>
+			</div>
+			<div class="col">
+			<span class="label_custom">DataBase</span>			
+		</div>
+		
+		<div class="col">
+			<label class="switch"> <input type="checkbox"
+				ng-click="toggleEvent4()" ng-model="configMod"> <span
+				class="slider round"></span>
+			</label>
+			</div>
+			<div class="col">
+			<span class="label_custom">Module</span>			
+		</div>
+		<div class="col">
+			<label class="switch"> <input type="checkbox"
+				ng-click="toggleEvent5()" ng-model="configSubMod"> <span
+				class="slider round"></span>
+			</label>
+			</div>
+			<div class="col">
+			<span class="label_custom">SubModule</span>			
+		</div>
+		
+		
+			<div class="col">
+			<label class="switch"> <input type="checkbox"
+				ng-click="toggleEvent2()" ng-model="configScreen"> <span
+				class="slider round"></span>
+			</label>
+			</div>
+			<div class="col">
+			<span class="label_custom">Screen</span>			
+		</div>	
+		
+	</div>	
+</div>
+</div>
+</div>
+<br>
+<br>
+
+<div class="row">
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" ng-show="configApp == true" >
+<div ng-include="'views/application/applicationMaintenance.html'"></div>
+</div>
+
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" ng-show="configDB == true"  >
+<div ng-include="'views/DatabaseConfig/DatabaseConfig.html'"></div>
+</div>
+
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" ng-show="configMod == true"  >
+<div ng-include="'views/configureScreens/configModule.html'"></div>
+</div>
+
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" ng-show="configSubMod == true"  >
+<div ng-include="'views/configureScreens/configSubModule.html'"></div>
+</div>
+
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" ng-show="configScreen == true" >
+<div ng-include="'views/configureScreens/configScreen.html'"></div>
+</div>
+
+
+</div>
+
+

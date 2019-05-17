@@ -1,0 +1,44 @@
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <!-- <li class="breadcrumb-item active" aria-current="page">{{pageNav}}</li> -->
+    <li><a href="#"><span style="color:#2158af">Home</span></a></li>
+  	<li class="active"><span class="breadcrumFont">Role Maintenance</span></li>
+  	<li class="active" style="align:right;"><a href="#!pdfSearch/6" style="color:#2158af;"><span class="icon far fa-question-circle"></span></a></li>
+   </ol>
+</nav>
+
+<div class="container drop-shadow">
+<div class="row">
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+	<div class="row">
+	<div class="col">
+			<label class="switch"> <input type="checkbox"
+				ng-click="toggleEvent1()" ng-model="addRole"> <span
+				class="slider round"></span></label>
+				</div>
+				<div class="col">
+				<span class="label_custom">{{'RoleMaintenance.addRole.label' | translate }}</span>
+			</div>
+			<div class="col">
+			 <label class="switch"> <input type="checkbox"
+				ng-click="toggleEvent2()" ng-model="mapRole"> <span
+				class="slider round"></span></label>
+				</div>
+				<div class="col">
+				<span class="label_custom">{{'RoleMaintenance.mapRole.label' | translate }}</span>
+			</div>
+			</div>
+		</div>
+</div>
+</div>
+<br>
+<br>
+<div class="row">
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" ng-show="addRole == true" ng-hide="mapRole == true">
+<div ng-include="'views/user/addRole.html'"></div>
+</div>
+
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" ng-show="mapRole == true" ng-hide="addRole == true">
+<div ng-include="'views/user/mapRole.html'"></div>
+</div>
+</div>

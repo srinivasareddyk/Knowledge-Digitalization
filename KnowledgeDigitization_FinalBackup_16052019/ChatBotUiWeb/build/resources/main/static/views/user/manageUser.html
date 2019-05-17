@@ -1,0 +1,123 @@
+
+<div ng-init="init()">
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <!-- <li class="breadcrumb-item active" aria-current="page">{{pageNav}}</li> -->
+    <li><a href="#"><span style="color:#2158af">{{'User.home.Lable' | translate }}</span></a></li>
+  	<li class="active"><span class="breadcrumFont" >{{'User.manageUser.Lable' | translate }}</span></li>
+  	<li class="active" style="align:right;"><a href="#!pdfSearch/5" style="color:#2158af;"><span class="icon far fa-question-circle"></span></a></li>
+   </ol>
+</nav>
+<div class="container" style="background: none !important;" >
+<div class="row" id ="messages">
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="padding-left: 0px; padding-right: 0px;"   >
+<div id="messages_save_succ" class="alert alert-success icon far fa-check" role="alert" data-ng-show="message" ><span class="label_custom">{{message | translate }}</span>
+			<a class="clear" ng-click="message=null"> 
+				<span  class="alertSuccess glyphicon glyphicon-remove"></span></a>
+			</div>	
+			</div>
+			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="padding-left: 0px; padding-right: 0px;" >
+              <div id="messages_save_error" class="alert alert-danger icon far fa-times" role="alert" data-ng-show="reqErrMsg" ><span class="label_custom">{{ reqErrMsg | translate  }}</span>
+                           <a class="clear" ng-click="reqErrMsg=null"> 
+                         <span  class="alertCancel glyphicon glyphicon-remove"></span></a>
+              </div>
+       </div>
+</div>
+</div>
+<!-- Search Component -->	
+<div class="container drop-shadow" >
+ <div  class="row" >
+ 
+ 
+	<div class="col-xs-9 col-sm-6 col-md-6 col-lg-3 col_custom">
+   		<span class="label_custom"> {{'User.CdsID.Lable' | translate }}</span>
+   		 <input type="text" ng-model="user.cdsidSearch"  class="form-control input-xxlarge" />
+ 	</div>
+ 	<div class="col-xs-9 col-sm-6 col-md-6 col-lg-3 col_custom">
+    	<span class="label_custom">{{'User.FirstName.Lable' | translate }}</span>
+		<input type="text" ng-model="user.fNameSearch"  class="form-control input-xxlarge" />
+	</div>
+	<div class="col-xs-9 col-sm-6 col-md-6 col-lg-3 col_custom">
+   		<span class="label_custom"> {{'User.LastName.Lable' | translate }}</span>
+		<input type="text" ng-model="user.lNameSearch"  class="form-control input-xxlarge" />
+ 	</div>	
+ 	<div class="col-xs-9 col-sm-6 col-md-6 col-lg-3 col_custom">
+   		<span class="label_custom"> {{'User.role.Lable' | translate }}</span>
+	    <select ng-model="user.roleSearch"  class="form-control classic" ng-options="sta.value for sta in roleUserList track by sta.key"></select>
+ 	</div>
+ 	<div class="col-xs-9 col-sm-6 col-md-6 col-lg-3 col_custom">
+   		<span class="label_custom"> {{'User.status.Lable' | translate }}</span>
+	    <select ng-model="user.statusSearch"  class="form-control classic" ng-options="sta.value for sta in statusList track by sta.key"></select>
+ 	</div> 	
+ </div>
+</div>
+<!-- Search Button -->
+<!-- <div class="container">	 -->	
+     
+    <div class="row" style="margin-top: 2em;margin-bottom: 2em;">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="text-align: center;">
+    
+     <button type="button" class="btn glass" style="margin-top: 0.5em;" ng-show="isAuthorized('Manage Users','Search')" ng-click="searchUser(true)">
+		<span class="icon far fa-search"></span> {{'User.search.Button' | translate }}
+		</button>
+		<button type="button" class="btn glass" style="margin-top: 0.5em;" ng-show="isAuthorized('Manage Users','Refresh')" ng-click="refreshUser()">
+		<span class="icon far fa-retweet"></span> {{'DSIDMain.refresh.Lable' | translate }}
+		</button>	
+		
+		
+    </div>
+   
+   </div>
+ <!--  </div> -->
+  
+  <div class="container drop-shadow" >
+  <div  class="table-responsive">
+
+				<div class="table-responsive" >
+					<table st-set-filter="customFilter" st-table="displayed"
+						st-safe-src="collection"
+						class="table table-bordered table-striped" >
+
+						<thead>
+							<tr>
+								<th st-sort="id" scope="col" style="text-align:center">{{'User.lineNo.Lable' | translate }}</th>
+								<th st-sort="wslid" scope="col" style="text-align:center">{{'User.CdsID.Lable' | translate }}</th>
+								<th st-sort="firstname" scope="col" style="text-align:center">{{'User.FirstName.Lable' | translate }}</th>
+								<th st-sort="lastname" scope="col" style="text-align:center">{{'User.LastName.Lable' | translate }}</th>
+								<th st-sort="emailid" scope="col" style="text-align:center">{{'User.email.Lable' | translate }}</th>
+								<th st-sort="role" scope="col" style="text-align:center">{{'User.role.Lable' | translate }}</th>
+								<th st-sort="status" scope="col" style="text-align:center">{{'User.status.Lable' | translate }}</th>
+								<th></th>
+							</tr>					
+							
+						</thead>
+						<tbody>
+							<tr ng-repeat="row in displayed">
+
+								<td scope="row">{{row.id}}</td>
+								<td>{{row.cdsid}}</td>
+								<td>{{row.fName}}</td>
+								<td>{{row.lName}}</td>
+								<td>{{row.email}}</td>
+								<td>{{row.role.value}}</td>
+								<td>{{row.status.value}}</td>
+								<td style="padding:0px 0px 0px 0px;text-align:center;"><button type="button" class="btn glass" ng-click="manageUpdateUser(row)" style="margin-top: 0.5em;"><span class="icon fas fa-check"></span>{{'User.manage.Lable' | translate }}</button>	</td>
+						</tbody>
+
+						<tfoot>
+							<tr>
+
+								<td colspan="12">
+									<div class="" st-items-by-page="10" st-pagination=""
+										st-template="views/pagination.custom.html"></div>
+           <div style="text-align: right;padding-top: 0.3em;"><span>{{'Common.total.records' | translate }} : {{ collection.length }}</span> </div>
+								</td>
+
+							</tr>
+						</tfoot>
+					</table>
+				</div>
+			</div>
+  </div>
+
+</div>

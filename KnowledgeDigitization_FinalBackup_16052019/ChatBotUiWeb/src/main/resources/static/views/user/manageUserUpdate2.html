@@ -1,0 +1,103 @@
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <!-- <li class="breadcrumb-item active" aria-current="page">{{pageNav}}</li> -->
+    <li><a href="#"><span style="color:#2158af">{{'User.home.Lable' | translate }}</span></a></li>
+    <li class="active"><span style="color:#2158af">{{'User.manageUser.Lable' | translate }}</span></li>
+  	<li class="active"><span class="breadcrumFont">{{'User.updateuser.Lable' | translate }}</span></li>
+   </ol>
+</nav>
+
+<div ng-app="fordApp" ng-controller="manageUserController" >
+
+
+<div class="container drop-shadow" style="margin-top: 2em;">
+  <div class="row" ng-form name="myForm">
+  
+    <div class="col-xs-9 col-sm-6 col-md-6 col-lg-3 col_custom">
+    <span class="label_custom">{{'User.CdsID.Lable' | translate }}</span> 
+				<input type="text" ng-model="user.wslId" name="wslId" ng-keyup="reqErrMsg=null;succMessage=null" ng-disabled="true" class="form-control input-xxlarge" 
+				ng-minlength="8"  maxlength="8"  />
+    </div>
+  <div class="col-xs-9 col-sm-6 col-md-6 col-lg-3 col_custom">
+	<span class="label_custom">{{'User.FirstName.Lable' | translate }}</span> 
+	<input type="text" ng-model="user.fName" class="form-control" ng-disabled="true"/>
+	</div>
+  <div class="col-xs-9 col-sm-6 col-md-6 col-lg-3 col_custom">
+	<span class="label_custom">{{'User.LastName.Lable' | translate }}</span> 
+	<input type="text" ng-model="user.lName" class="form-control" ng-disabled="true"/>
+	</div>
+ <div class="col-xs-9 col-sm-6 col-md-6 col-lg-3 col_custom">
+	<span class="label_custom">{{'User.email.Lable' | translate }} </span> 
+	<input type="text" ng-model="user.email" class="form-control" ng-disabled="true"/>
+ </div>
+ <div class="col-xs-9 col-sm-6 col-md-6 col-lg-3 col_custom">
+    <span class="label_custom">{{'User.workPhone.Lable' | translate }}</span> 
+	<input type="text" ng-model="user.wPhone" class="form-control" ng-disabled="true"/>
+	</div>
+  <div class="col-xs-9 col-sm-6 col-md-6 col-lg-3 col_custom">
+	<span class="label_custom">{{'User.addr1.Lable' | translate }}</span> 
+	<input type="text" ng-model="user.addr1" class="form-control" ng-disabled="true"/>
+	</div>
+  <div class="col-xs-9 col-sm-6 col-md-6 col-lg-3 col_custom">
+	<span class="label_custom">{{'User.addr2.Lable' | translate }}</span>
+	<input type="text" ng-model="user.adrr2" class="form-control" >
+	</div>
+<div class="col-xs-9 col-sm-6 col-md-6 col-lg-3 col_custom">
+	<span class="label_custom">{{'User.city.Lable' | translate }}</span><input type="text" ng-model="user.city" class="form-control" >
+</div>
+ <div class="col-xs-9 col-sm-6 col-md-6 col-lg-3 col_custom">
+    <span class="label_custom">{{'User.state.Lable' | translate }}</span>
+	<input type="text" ng-model="user.state" class="form-control" />
+  </div>
+  <div class="col-xs-9 col-sm-6 col-md-6 col-lg-3 col_custom">
+	<span class="label_custom">{{'User.pCode.Lable' | translate }}</span>
+	<input type="text" ng-model="user.pCode" class="form-control" >
+	</div>
+  <div class="col-xs-9 col-sm-6 col-md-6 col-lg-3 col_custom">
+	<span class="label_custom">{{'User.country.Lable' | translate }}</span>
+	<select ng-model="user.country" class="form-control classic" ng-options="x.value for x in countries track by x.key""></select>
+	</div>
+ <div class="col-xs-9 col-sm-6 col-md-6 col-lg-3 col_custom">
+	<span class="label_custom">{{'User.lang.Lable' | translate }}</span><span style="color:red;">*</span>
+	<select ng-model="user.lang" class="form-control classic" ng-options="x.value for x in languages track by x.key"></select>
+ </div>
+	
+	<div class="col-xs-9 col-sm-6 col-md-6 col-lg-3 col_custom">
+   <span class="label_custom"> {{'User.role.Lable' | translate }}</span><span style="color:red;">*</span>
+   <select ng-model="user.role" name="users" class="form-control classic" ng-options="sta.value for sta in roleList track by sta.key"></select>
+ </div>
+ 
+ <div class="col-xs-9 col-sm-6 col-md-6 col-lg-3 col_custom">
+   <span class="checkbox"> {{'User.disableUser.Lable' | translate }}</span>
+   <input type="checkbox" ng-model="checkboxModel.value2"
+           ng-true-value="'YES'" ng-false-value="'NO'"> 
+ </div>
+ 
+</div>
+</div>
+
+
+
+ 
+ <!-- <div class="container"> -->		
+     
+    <div class="row" style="margin-top: 2em;margin-bottom: 2em;">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="text-align: center;">
+    
+		<button type="button" class="btn glass" style="margin-top: 0.5em;">
+		<span class="icon far fa-check-square"></span> {{'User.update.Button' | translate }}
+		</button>
+		<button type="button" class="btn glass" ng-click="redirectToBack()" style="margin-top: 0.5em;">
+		<span class="icon far fa-arrow-left"></span> {{'User.back.Button' | translate }}</button>
+		
+		
+    </div>
+   
+   </div>
+ <!--  </div> -->
+  
+  
+  
+  
+  
+</div>

@@ -1,0 +1,246 @@
+<div ng-controller="moduleController">
+<!-- Server Side Errors  -->
+<div class="container" style="background: none !important;" >
+
+	<div class="row" id="messages">
+		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12"
+			style="padding-left: 0px; padding-right: 0px;"
+			data-ng-show="reqErrs" ng-repeat="err in reqErrs">
+			<div id="messages_frm_server"
+				class="alert alert-danger icon far fa-times" role="alert"
+				data-ng-show="err"><span class="label_custom">
+				{{ err | translate}}</span><a class="clear"
+					ng-click="clearMsg()"> <span
+					class="alertCancel glyphicon glyphicon-remove"></span>
+				</a>
+			</div>
+		</div>
+		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12"
+			style="padding-left: 0px; padding-right: 0px;"
+			data-ng-show="modulevo.errors" ng-repeat="err in modulevo.errors">
+			<div id="messages_frm_server"
+				class="alert alert-danger icon far fa-times" role="alert"
+				data-ng-show="err"><span class="label_custom">
+				{{ err | translate}}</span><a class="clear"
+					ng-click="modulevo.errors=null"> <span
+					class="alertCancel glyphicon glyphicon-remove"></span>
+				</a>
+			</div>
+		</div>
+		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12"
+			style="padding-left: 0px; padding-right: 0px;">
+			
+			<div id="messages_save_succ"
+				class="alert alert-success icon far fa-check" role="alert"
+				data-ng-show="message">
+				<span class="label_custom">{{message | translate }}</span> <a class="clear"
+					ng-click="message=null"> <span
+					class="alertSuccess glyphicon glyphicon-remove"></span></a>
+			</div>
+		</div>
+		<!-- Required Error Message -->
+		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12"
+			style="padding-left: 0px; padding-right: 0px;">
+		<div id="messages_req_err"
+			class="alert alert-danger icon far fa-times" role="alert"
+			data-ng-show="reqErrMsg">
+			<span class="label_custom">{{reqErrMsg | translate}}</span> <a class="clear" ng-click="reqErrMsg=null">
+				<span class="alertCancel glyphicon glyphicon-remove"></span>
+			</a>
+		</div>
+	</div>
+	</div>
+
+</div>
+	<!-- Search Component -->
+	<div class="container drop-shadow" ng-init="init()">
+		<div class="row">
+
+			<div class="col-xs-9 col-sm-6 col-md-6 col-lg-3 col_custom">
+				<span class="label_custom"> ITMS No.</span>
+				<multiselect select-items="selectedItmsList" data="itmsList" check-id="id11" ></></multiselect>
+		</div>
+			<!-- <div class="col-xs-9 col-sm-6 col-md-6 col-lg-3 col_custom">
+				<span class="label_custom"> Module Code</span> 
+					<multiselect select-items="selectedModcode" data="modulecodelist" check-id="id12" ></></multiselect>
+			</div>
+			<div class="col-xs-9 col-sm-6 col-md-6 col-lg-3 col_custom">
+				<span class="label_custom"> Module Name</span>
+					<multiselect select-items="selectedMod" data="modulelist" check-id="id13"></></multiselect>
+			</div> -->
+			<div class="col-xs-9 col-sm-6 col-md-6 col-lg-3 col_custom">
+				<span class="label_custom"> Module </span>
+				 <!-- <select ng-model="selectedSubMod"
+					class="form-control classic"
+					ng-options="sta.value for sta in submodulelist track by sta.key"></select> -->
+					
+					<multiselect select-items="selectedModcodeName" data="modulecodenamelist" check-id="id14"></></multiselect>
+			</div>
+			
+		</div>
+	</div>
+	<!-- Search Button -->
+	
+     
+    <div class="row" style="margin-top: 2em;margin-bottom: 2em;">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="text-align: center;">
+    
+     <button type="button" class="btn glass" ng-click="search()"  style="margin-top: 0.5em;">
+		<span class="icon far fa-search"></span> {{'User.search.Button' | translate }}
+		</button>
+		<button type="button" class="btn glass" ng-click="refresh()"  style="margin-top: 0.5em;">
+		<span class="icon far fa-retweet"></span> {{'DSIDMain.refresh.Lable ' | translate }}
+		</button>	
+		
+    </div>
+   
+   </div>
+   <!-- data table -->
+   <div>
+    <div class="container drop-shadow"   ng-if="data.length>0">
+
+				<div class="table-responsive" >
+					<table st-set-filter="customFilter" st-table="data"
+						st-safe-src="rowCollection"  ng-if="data.length>0"
+						class="table table-bordered table-striped" >
+						<thead>
+							<tr>
+							    <th row-select-all="rowCollection" selected="selected" ng-click="selectAll(rowCollection)"></th>
+								<th st-sort="id" scope="col" style="text-align:center">{{'common.LineNo.Lable' | translate }}</th>
+								<th  st-sort="appItmsNoName" scope="col" style="text-align:center">ITMS No.
+								 <span ng-show="asteriskFlag" style="color:#ff0000">*</span> </th>
+								 
+								  <th  st-sort="modulecode" scope="col" style="text-align:center">Module Code
+								 <span ng-show="asteriskFlag" style="color:#ff0000">*</span> </th>
+								<th st-sort="module" scope="col" style="text-align:center">Module
+									<span ng-show="asteriskFlag" style="color:#ff0000">*</span> </th>
+								<th st-sort="createdDate" scope="col" style="text-align:center">Created Date</th>
+								<th st-sort="lastUpdatedDate" scope="col" style="text-align:center">Last Updated Date</th>
+							</tr>					
+							
+						</thead>
+						<tbody ng-if="data.length>0">
+							<tr ng-repeat="row in data">
+								<td row-select="row" ng-click="select(row.id)"	selectdt="row.selected"></td>
+								<td >{{row.id}}</td>
+								
+								<td ng-if="(!dataadd && !row.selected)">{{row.appItmsNoName.value}}</td>
+								<td ng-if=" (row.selected && dataadd ) || (row.selected && !dataadd) ">
+								<select
+								ng-model="row.appItmsNoName" class="form-control classic"
+								ng-options="itms.value for itms in allitmsList track by itms.key" ></select></td>
+								
+								<td ng-if="!dataadd ">{{row.modulecode}}</td>
+								<td ng-if="dataadd && row.selected"><input type="text"	class="form-control"  ng-model="row.modulecode"   required limit-to="5"  /></td>
+								
+								
+								<td ng-if="!dataadd && !row.selected">{{row.module}}</td>
+								<td ng-if="(dataadd && row.selected) || (!dataadd && row.selected)"><input type="text"	class="form-control"  ng-model="row.module"   required limit-to="150"  /></td>
+								
+								
+								
+								<td ng-if="!dataadd && !row.selected">{{row.createdDate | date:'dd/MM/yyyy' }}</td>
+								<td ng-if="dataadd || row.selected">{{row.createdDate  | date:'dd/MM/yyyy'}}</td>
+								<td ng-if="!dataadd && !row.selected">{{row.lastUpdatedDate | date:'dd/MM/yyyy'}}</td>
+								<td ng-if="dataadd || row.selected">{{row.lastUpdatedDate  | date:'dd/MM/yyyy'}}</td>
+								
+						</tbody>
+						
+
+						<tfoot>
+							<tr>
+
+								<td colspan="12">
+									<div class="" st-items-by-page="5" st-pagination=""
+										st-template="views/pagination.custom.html"></div>
+									<div style="text-align: right;padding-top: 0.3em;"><span>{{'Common.total.records' | translate }} : {{ rowCollection.length }}</span> </div> 
+								</td>
+
+							</tr>
+						</tfoot>
+					</table>
+				</div>
+  </div>
+ 
+  
+  <div class="row" style="margin-top: 2em;margin-bottom: 2em;">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="text-align: center;">
+        
+    
+		<button type="button" class="btn glass" ng-click="addNewModule()"  style="margin-top: 0.5em;">
+		<span class="icon far fa-plus"></span> {{'common.addRow.button' | translate }}
+		</button>
+		<button type="button" class="btn glass" ng-click="save(rowCollection)" style="margin-top: 0.5em;">
+		<span class="icon far fa-save"></span> {{'common.save.button' | translate }}
+		</button>
+		<button type="button" class="btn glass" ng-click="downloadExcel()"  style="margin-top: 0.5em;">
+		<span class="icon fas fa-angle-double-down"></span> {{'common.exportToExcel.button' | translate }}
+		</button>
+		<button type="button"  ng-click="openSinglePopforMainModule()"  data-toggle="modal"  
+		 class="btn glass"  style="margin-top: 0.5em;">
+		<span class="icon far fa-cloud-upload"></span> {{'common.importExcel.button' | translate }}
+		</button>
+		<button type="button" class="btn glass" ng-click="DownloadTemplate()"  style="margin-top: 0.5em;">
+		<span class="icon far fa-download"></span> {{'common.downloadTemplate.button' | translate }}
+		</button>	
+		</div>
+		
+   
+   
+   </div>
+   
+   
+  </div>
+  
+  <!-- excel upload -->
+  
+  
+    <div  id="ModuleUploadModalSingle" class="modal fade" role="dialog">
+              <div class="modal-dialog">
+                     <div class="modal-content">
+                           <div class="modal-header">
+                                  <div class="row">
+                                         <div class="col">
+                                                <span></span>
+                                                <h4 class="modal-title">{{'common.file.upload'| translate }}</h4>
+                                         </div>
+                                         <div class="col" style="margin-left: 34.2em; margin-top: -1.2em;">
+                                                <span class="icon far fa-times" data-dismiss="modal" ng-click="clearFile()"></span>
+                                         </div>
+                                  </div>
+                           </div>
+                           <div class="modal-body">
+                                  <div class="row">
+                                         <div class="col">
+
+                                                <input type="file" id="single" ng-model="file" name="single" multiple
+                                                       uploader="uploader"
+                                                       onchange="angular.element(this).scope().getExcelFileDetails(this)" />
+
+                                         </div>
+                                  </div>
+
+                                  <div class="row">
+                                         <div class="col"></div>
+                                         <div class="col">
+                                                <button type="submit" class="btn glass"
+                                                       ng-click="excelUploadFile()" style="margin-top: 2em;">{{'common.file.upload.popup'| translate }}</button>
+                                                <button type="button" class="btn glass" data-dismiss="modal" ng-click="clearFile()"
+                                                       style="margin-top: 2em;">{{'common.button.close'| translate }}</button>
+                                         </div>
+
+                                  </div>
+
+                                  <div class="row" ng-if="SingleMessage!=null && SingleMessage!=''">
+                                         <div class="col">
+                                                <p data-ng-show="SingleMessage" style="color: red;">{{SingleMessage | translate}}</p>
+
+                                         </div>
+                                  </div>
+
+                           </div>
+                     </div>
+              </div>
+       </div>
+       
+       </div>

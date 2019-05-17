@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+<script src="js/lib/angular.min.js"></script>
+<script src="js/app/module.js"></script>
+</head>
+<body ng-app="myapp">
+<h1>World Page</h1>
+{{2+3}}
+
+<div ng-controller="one">
+{{data}}
+<ul>
+<li ng-repeat="x in things track by $index">{{x}} </li>
+</ul>
+<input type="text" ng-model="current"/>
+<button ng-click="handle()">Add</button>
+<br><br>
+<table>
+<thead>
+<th>S.No</th><th>Name</th>
+</thead>
+<tbody>
+<tr ng-repeat="a in people">
+<td>{{a.sno}}</td>
+<td>{{a.name}}</td>
+</tr>
+</tbody>
+</table>
+<br>
+</div>
+<div ng-controller="two">
+<br><br>
+{{info}} <br>
+<input type="text" ng-model="sNo"/><br>
+<input type="text" ng-model="name"/><br>
+<button ng-click="addPerson()">Add Person</button>
+</div>
+
+<div ng-controller="rest">
+<br><br>
+<table>
+<thead>
+<th>S.No</th><th>Name</th><th>City</th>
+</thead>
+<tbody>
+<tr ng-repeat="a in personarray">
+<td>{{a.sno}}</td>
+<td>{{a.name}}</td>
+<td>{{a.city}}</td>
+</tr>
+</tbody>
+</table>
+<br>
+name <input type="text" ng-model="name">
+city <input type="text" ng-model="city">
+<button ng-click="store" value="Save"></button>
+
+</div>
+</body>
+</html>

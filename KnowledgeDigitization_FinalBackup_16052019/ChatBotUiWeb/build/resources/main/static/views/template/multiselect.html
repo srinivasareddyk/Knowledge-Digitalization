@@ -1,0 +1,99 @@
+<div class="dropdown" id="div{{checkId}}"
+	ng-init="label='Please Select'">
+	<button
+		class="dropdownbutton btn btn-secondary dropdown-toggle dropdown-custom classic"
+		ng-model="label" type="button" id="{{checkId}}" data-toggle="dropdown"
+		aria-haspopup="true" aria-expanded="true">{{label}}</button>
+	<div class="dropdown-menu close-menu" 
+		aria-labelledby="dropdownMenuButton" style="display:none; z-index : 500000 !important;" id="menu{{checkId}}">
+<!-- <input type="checkbox" class="dropdown-item" ng-model="checkboxEl" ><div  ng-click="selectall()"></div> -->
+
+
+		<input class="dropdown-item" ng-click="selectall()" type="checkbox" class="dropdown-item" ng-model="checkboxEl" style="margin-top:12px;" >
+		<span ng-click="toggleDropdown()" style="height:0px;width:0px;margin-top:9px"class="close">&times; </span>
+		
+		<div class="dropdown-search dropdown-item" id="search{{checkId}}">
+			<input type="search" id="search{{checkId}}" ng-model="searchFilter"
+				placeholder="Search..." style="padding-left:0px;padding-right:0px;height:30px; width:150px;" />
+		
+		
+</div>
+		<!--<div class="dropdown-item" ng-click="checkAll()" id="checkall">Check All</div>
+		<div class="dropdown-item" ng-click="unCheckAll()" id="uncheckall">UnCheck All</div>-->
+		
+		<li role="separator" class="divider"></li>
+		
+		<div class="dropdown-item selected" ng-repeat="k1 in selectItems track by $index"
+			id="selecteditems" ng-click="remove(k1)"><i class="fa fa-check-square" aria-hidden="true"></i>&nbsp;{{k1}}</div>
+			<!--     ------------------------------------------------------------------------------   <input type="checkbox" class="selectedcheckbox" checked ;ng-change="changeCheckBox(k1,$event)" ng-model="selectedcheck" ng-checked="true" /> -->	
+	<div class="dropdown-item" ng-repeat="k in datadup | filter:searchFilter track by $index"
+			ng-click="add(k)" id="listitems"><input type="checkbox" class="checkbox" ng-change="addchangeCheckBox(k)" ng-model="check" />{{k}}</div>
+	</div>
+</div>
+<script>
+	$(document).ready(function() {
+		jQuery('.dropdownbutton').off('click').on('click', function(e) {
+
+			var id = $(this).attr('id');
+			var menuid = "menu" + $(this).attr('id');
+			
+			if ($('#' + menuid).css("display") == 'block') {
+				$('#' + menuid).css('display', 'none');
+			} else {
+				 $('.close-menu').css('display', 'none');
+				$('#' + menuid).css('display', 'block');
+			}
+		});
+	});
+
+	$("document").ready(function() {
+
+		  $('.dropdown-menu ').on('click', function(e) {
+		      if($(this).hasClass('close-menu')) {
+		          e.stopPropagation();
+		      }
+		  });
+		});
+	
+	jQuery('body')
+			.off('click')
+			.on(
+					'click',
+					function(e) {
+						var status = $(e.target).attr('id');
+						var menuid = "menu" + $('.dropdownbutton').attr('id');
+						var classid = $(e.target).attr('class');
+						var hideVar = "false";
+						switch (classid) {
+						case 'dropdownbutton btn btn-secondary dropdown-toggle dropdown-custom classic ng-pristine ng-untouched ng-valid ng-binding ng-not-empty':
+						case 'dropdownbutton btn btn-secondary dropdown-toggle dropdown-custom classic ng-pristine ng-valid ng-binding ng-not-empty ng-touched':
+							hideVar = "hide";
+							break;
+						case 'ng-pristine ng-untouched ng-valid ng-empty':
+						case 'dropdown-item ng-binding':
+						case 'dropdown-item ng-binding ng-scope':
+						case 'dropdown-search dropdown-item':
+						case 'dropdown-item':
+						case 'ng-valid ng-touched ng-dirty ng-empty':
+						case 'ng-valid ng-dirty ng-touched ng-empty':
+						case 'ng-valid ng-dirty ng-touched ng-valid-parse ng-empty':
+						case 'dropdown-item selected ng-binding ng-scope':
+						case 'ng-valid ng-not-empty ng-dirty ng-valid-parse ng-touched':
+						case 'ng-valid ng-dirty ng-valid-parse ng-touched ng-not-empty':
+						case 'ng-valid ng-dirty ng-valid-parse ng-touched ng-empty':
+						case 'ng-pristine ng-valid ng-empty ng-touched':
+						case 'ng-untouched ng-valid ng-not-empty ng-dirty ng-valid-parse':
+						case 'ng-untouched ng-valid ng-dirty ng-valid-parse ng-empty':
+						case 'ng-valid ng-dirty ng-valid-parse ng-empty ng-touched':
+						case 'ng-valid ng-touched ng-not-empty ng-dirty ng-valid-parse':
+							hideVar = false;
+							break;
+						default:
+							hideVar = true;
+
+						}
+						if (hideVar == true) {
+							$('.close-menu').hide();
+						}
+					});
+</script>

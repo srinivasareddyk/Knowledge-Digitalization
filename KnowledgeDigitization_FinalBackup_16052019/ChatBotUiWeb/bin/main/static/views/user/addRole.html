@@ -1,0 +1,134 @@
+<div ng-controller="AddRoleController" ng-init= init1()>
+<div class="container" style="background: none !important;" >
+<div class="row" id ="messages">
+	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="padding-left: 0px; padding-right: 0px;" >
+		<div id="messages_save_succ" class="alert alert-success icon far fa-check" role="alert" data-ng-show="message" ><span class="label_custom">{{ message | translate }}</span>
+				<a class="clear" ng-click="message=null"> 
+					<span  class="alertSuccess glyphicon glyphicon-remove"></span></a>
+		</div>
+	</div>
+	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="padding-left: 0px; padding-right: 0px;" data-ng-show="addRoleObj.errors" ng-repeat="err in addRoleObj.errors"  >
+		<div id="messages_frm_server" class="alert alert-danger icon far fa-times" role="alert" data-ng-show="err" >
+		<span class="label_custom">{{ err | translate}}</span><a class="clear"  ng-click="addRoleObj.errors=null"> 
+     <span  class="alertCancel glyphicon glyphicon-remove"></span></a>
+		</div>
+		</div>
+	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="padding-left: 0px; padding-right: 0px;" data-ng-show="reqErrs"  ng-repeat="err in reqErrs"  >
+		<div id="messages_frm_server" class="alert alert-danger icon far fa-times" role="alert" data-ng-show="err" >
+		<span class="label_custom">{{ err | translate}}</span><a class="clear"  ng-click="clearMsg()"> 
+     <span  class="alertCancel glyphicon glyphicon-remove"></span></a>
+		</div>
+		</div>
+	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="padding-left: 0px; padding-right: 0px;" >
+		<div id="msgs_req_err" class="alert alert-danger icon far fa-times" role="alert" data-ng-show="reqErrMsg" ><span class="label_custom">{{ reqErrMsg | translate  }}</span>
+				<a class="clear" ng-click="reqErrMsg=null"> 
+					<span  class="alertCancel glyphicon glyphicon-remove"></span></a>
+		</div>
+	</div>
+	<!-- <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="padding-left: 0px; padding-right: 0px;" >
+		<div id="msgs_req_leng_err" class="alert alert-danger icon far fa-times" role="alert" data-ng-show="lenErrMsg" >{{ lenErrMsg | translate }}
+				<a class="clear" ng-click="lenErrMsg=null"> 
+					<span  class="alertCancel glyphicon glyphicon-remove"></span></a>
+		</div>
+	</div> -->
+
+	
+</div>
+</div>
+<div class="container drop-shadow">
+<div class="row">
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+ <div  class="table-responsive">
+
+				<div class="table-responsive" >
+					<table st-set-filter="customFilter" st-table="data"
+						st-safe-src="rowCollection"
+						class="table table-bordered table-striped" >
+
+						<thead>
+							<tr>
+							    <th row-select-all="rowCollection" selected="selected" ng-click="selectAll(rowCollection)"></th>
+								<th st-sort="lineNo" scope="col"  style="text-align:center">{{'common.LineNo.Lable' | translate }}</th>
+								<th st-sort="roleCode" scope="col"  style="text-align:center">{{'RoleMaintenance.roleCode.label' | translate }}
+								<span ng-show="asteriskFlag" style="color:#ff0000">*</span> </th> 
+								<th st-sort="roleName" scope="col"  style="text-align:center">{{'RoleMaintenance.roleName.label' | translate }}
+								<span ng-show="asteriskFlag" style="color:#ff0000">*</span> </th> 
+								<th st-sort="status" scope="col"  style="text-align:center">{{'DSIDMain.status.Lable' | translate }}</th>
+								<th st-sort="createdDate" scope="col"  style="text-align:center">{{'DSIDMain.createdDate.Lable' | translate }}</th>
+								<th st-sort="lastUpdatedDate" scope="col" style="text-align:center">{{'DSIDMain.lastUpdatedDate.Lable' | translate }}</th>
+							</tr>					
+							
+						</thead>
+						<!-- <tbody>
+							<tr ng-repeat="row in displayed">
+
+								<td scope="row">{{row.id}}</td>
+								<td>{{row.roleCode}}</td>
+								<td>{{row.roleName}}</td>
+								<td>{{row.status}}</td>
+								<td>{{row.createdDate}}</td>
+								<td>{{row.lastUpdatedDate}}</td>
+								
+						</tbody> -->
+
+                           <tbody ng-if="data.length>0">
+							<tr ng-repeat="row in data">
+								<td row-select="row" ng-click="select(row.id)"	selectdt="row.selected"></td>
+								<td >{{row.id}}</td>
+								<td ng-if="(!dataadd && !row.selected)  || (row.selected && !dataadd)">{{row.roleCode}}</td>
+								<td ng-if="dataadd || (row.selected && dataadd )">
+								<input type="text"	class="form-control" ng-model="row.roleCode"   required limit-to="3"/></td>
+								<td ng-if="!dataadd && !row.selected">{{row.roleName}}</td>
+								<td ng-if="dataadd || row.selected"><input type="text"	class="form-control"  ng-model="row.roleName"   required limit-to="50"  /></td>
+								<td ng-if="(!dataadd && !row.selected)">{{row.status.value}}</td>
+								<td ng-if=" row.selected && !dataadd "><select ng-model="row.status" class="form-control classic"
+								    ng-options="sta.value for sta in dataTableStatusList track by sta.key"></select></td>
+								<td ng-if=" dataadd "> Active</td>
+								<td ng-if="!dataadd && !row.selected">{{row.createdDate | date:'dd/MM/yyyy' }}</td>
+								<td ng-if="dataadd || row.selected">{{row.createdDate  | date:'dd/MM/yyyy'}}</td>
+								<td ng-if="!dataadd && !row.selected">{{row.lastUpdatedDate | date:'dd/MM/yyyy'}}</td>
+								<td ng-if="dataadd || row.selected">{{row.lastUpdatedDate  | date:'dd/MM/yyyy'}}</td>
+								
+						</tbody>
+
+
+
+						<tfoot>
+							<tr>
+
+								<td colspan="12">
+									<div class="" st-items-by-page="10" st-pagination=""
+										st-template="views/pagination.custom.html"></div>
+									<div style="text-align: right;padding-top: 0.3em;"><span>{{'Common.total.records' | translate }} : {{ rowCollection.length }}</span> </div>
+
+								</td>
+
+							</tr>
+						</tfoot>
+					</table>
+				</div>
+			</div>
+  </div>
+</div>
+</div>
+
+ <div class="row" style="margin-top: 2em;margin-bottom: 2em;">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="text-align: center;">
+    
+     <button type="button" class="btn glass" ng-click="addNewRole()" ng-show="isAuthorized('Role Maintenance','Add Row')" style="margin-top: 0.5em;">
+		<span class="icon far fa-plus"></span> {{'common.addRow.button' | translate }}
+		</button>
+		<button type="button" class="btn glass" ng-click="saveRole(rowCollection)" ng-show="isAuthorized('Role Maintenance','Save')"  style="margin-top: 0.5em;">
+		<span class="icon far fa-save"></span> {{'common.save.button' | translate }}
+		</button>
+		<button type="button" class="btn glass" ng-click="refreshAddRole()" ng-show="isAuthorized('Role Maintenance','Refresh')" style="margin-top: 0.5em;">
+		<span class="icon far fa-retweet"></span> {{'DSIDMain.refresh.Lable' | translate }}
+		</button>
+		<button type="button" class="btn glass" ng-click="downloadExcelAddRole()" ng-show="isAuthorized('Role Maintenance','Export To Excel')" style="margin-top: 0.5em;">
+		<span class="icon fas fa-angle-double-up"></span> {{'common.exportToExcel.button' | translate }}
+		</button>
+		
+    </div>
+   
+   </div>
+   </div>

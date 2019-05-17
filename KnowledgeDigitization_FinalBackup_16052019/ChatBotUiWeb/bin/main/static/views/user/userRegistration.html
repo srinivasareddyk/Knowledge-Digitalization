@@ -1,0 +1,149 @@
+
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <!-- <li class="breadcrumb-item active" aria-current="page">{{pageNav}}</li> -->
+    <li><a href="#"><span style="color:#2158af">{{'User.home.Lable' | translate }}</span></a></li>
+  	<li class="active"><span class="breadcrumFont" >{{'user.header.userReg.lable' | translate }}</span></li>
+  	<!-- <li class="active" style="align:right; "><a href="#!pdfSearch/1" style="color:#2158af;"><span class="icon far fa-question-circle"></span></a></li> -->
+   </ol>
+</nav>
+
+	<div ng-app="fordApp" ng-controller="UserRegController" >
+	
+	<div class="row" >
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="padding-left: 0px; padding-right: 0px;"   >
+<div id="messages_save_succ" class="alert alert-success icon far fa-check" role="alert" data-ng-show="message" ><span class="label_custom">{{message | translate }}</span>
+			<a class="clear" ng-click="message=null"> 
+				<span  class="alertSuccess glyphicon glyphicon-remove"></span></a>
+			</div>	
+			</div>
+	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="padding-left: 0px; padding-right: 0px;" >
+              <div id="messages_save_error" class="alert alert-danger icon far fa-times" role="alert" data-ng-show="reqErrMsg" ><span class="label_custom">{{ reqErrMsg | translate  }}</span>
+                           <a class="clear" ng-click="reqErrMsg=null"> 
+                         <span  class="alertCancel glyphicon glyphicon-remove"></span></a>
+              </div>
+       </div>
+</div>
+
+
+
+
+
+
+<div class="container drop-shadow" style="margin-top: 2em;">
+  <div class="row" ng-form name="myForm">
+  
+    <div class="col-xs-9 col-sm-6 col-md-6 col-lg-3 col_custom">
+    <span class="label_custom">{{'User.CdsID.Lable' | translate }}</span> 
+				<input type="text" ng-model="regUser.cdsid" name="cdsid"  class="form-control input-xxlarge" 
+				ng-minlength="2"  maxlength="8"  />
+    </div>
+    
+      <div class="col-xs-9 col-sm-6 col-md-6 col-lg-3 col_custom">
+    <span class="label_custom">{{'User.Password.Lable' | translate }}</span>&nbsp;<i class="fa fa-eye-slash" aria-hidden="true" ng-click="showpswd()" ng-show="close"></i><i class="fa fa-eye" aria-hidden="true" ng-click="showpswd()" ng-show="open"></i>
+				<input type="{{password}}" ng-model="regUser.password" name="pswd"  class="form-control input-xxlarge" 
+				ng-minlength="2"  maxlength="8" ng-change="checkpswdmain()" />
+    </div>
+        <div class="col-xs-9 col-sm-6 col-md-6 col-lg-3 col_custom">
+    <span class="label_custom">{{'User.CnfrmPassword.Lable' | translate }}</span>&nbsp;<i class="fa fa-eye-slash" aria-hidden="true" ng-click="showncnfmpswd()" ng-show="cnfrmclose"></i><i class="fa fa-eye" aria-hidden="true" ng-click="showncnfmpswd()" ng-show="cnfrmopen"></i>
+				<input type="{{Confirmpassword}}" ng-model="regUser.confirmpassword" name="pswd"  class="form-control input-xxlarge" 
+				ng-minlength="2"  maxlength="8" ng-change="checkpswd()" />
+    </div> 
+    
+    
+  <div class="col-xs-9 col-sm-6 col-md-6 col-lg-3 col_custom">
+	<span class="label_custom">{{'User.FirstName.Lable' | translate }}</span> 
+	<input type="text" ng-model="regUser.fName" class="form-control">
+	</div>
+  <div class="col-xs-9 col-sm-6 col-md-6 col-lg-3 col_custom">
+	<span class="label_custom">{{'User.LastName.Lable' | translate }}</span> 
+	<input type="text" ng-model="regUser.lName" class="form-control" >
+	</div>
+ <div class="col-xs-9 col-sm-6 col-md-6 col-lg-3 col_custom">
+	<span class="label_custom">{{'User.email.Lable' | translate }} </span> 
+	<input type="text" ng-model="regUser.email" class="form-control" >
+ </div>
+ <div class="col-xs-9 col-sm-6 col-md-6 col-lg-3 col_custom">
+    <span class="label_custom">{{'User.workPhone.Lable' | translate }}</span> 
+	<input type="text" ng-model="regUser.wPhone" class="form-control" />
+	</div>
+  <div class="col-xs-9 col-sm-6 col-md-6 col-lg-3 col_custom">
+	<span class="label_custom">{{'User.addr1.Lable' | translate }}</span> 
+	<input type="text" ng-model="regUser.addr1" class="form-control" >
+	</div>
+  <div class="col-xs-9 col-sm-6 col-md-6 col-lg-3 col_custom">
+	<span class="label_custom">{{'User.addr2.Lable' | translate }}</span>
+	<input type="text" ng-model="regUser.adrr2" class="form-control" limit-to="200" >
+	</div>
+<div class="col-xs-9 col-sm-6 col-md-6 col-lg-3 col_custom">
+	<span class="label_custom">{{'User.city.Lable' | translate }}</span><span style="color:red;">*</span>
+	<input type="text" ng-model="regUser.city" class="form-control" limit-to="25" >
+</div>
+ <div class="col-xs-9 col-sm-6 col-md-6 col-lg-3 col_custom">
+    <span class="label_custom">{{'User.state.Lable' | translate }}</span>
+	<input type="text" ng-model="regUser.state" class="form-control" limit-to="25" />
+  </div>
+  <div class="col-xs-9 col-sm-6 col-md-6 col-lg-3 col_custom">
+	<span class="label_custom">{{'User.pCode.Lable' | translate }}</span>
+	<input type="text" ng-model="regUser.pCode" class="form-control" limit-to="10" >
+	</div>
+  <div class="col-xs-9 col-sm-6 col-md-6 col-lg-3 col_custom">
+	<span class="label_custom">{{'User.country.Lable' | translate }}</span><span style="color:red;">*</span>
+	<select ng-model="regUser.country" class="form-control classic" ng-options="x.value for x in countries track by x.key""></select>
+	</div>
+ <div class="col-xs-9 col-sm-6 col-md-6 col-lg-3 col_custom">
+	<span class="label_custom">{{'User.lang.Lable' | translate }}</span><span style="color:red;">*</span>
+	<select ng-model="regUser.lang" class="form-control classic" ng-options="x.value for x in languages track by x.key"></select>
+ </div>
+	 <!-- <div class="col-xs-9 col-sm-6 col-md-6 col-lg-3 col_custom">
+   <span class="label_custom"> {{'User.status.Lable' | translate }}</span>
+   <select ng-model="regUser.status"  class="form-control classic" ng-options="sta.value for sta in statusList track by sta.key"></select>
+ </div>
+	
+	<div class="col-xs-9 col-sm-6 col-md-6 col-lg-3 col_custom">
+   <span class="label_custom"> {{'User.role.Lable' | translate }}</span><span style="color:red;">*</span>
+   <select ng-model="regUser.role"  class="form-control classic" ng-options="sta.value for sta in roleUserList track by sta.key" ></select>
+ </div> -->
+ 
+ 
+	<!-- <div class="col-xs-9 col-sm-6 col-md-6 col-lg-3 col_custom">
+   <span class="label_custom"> {{'common.area.Lable' | translate }}</span><span style="color:red;">*</span>
+   <multiselect select-items="areaSelectedList" data="allAreaList" check-id="id1" ></></multiselect>
+ </div> --> 
+</div>
+</div>
+
+
+
+ 
+<!--  <div class="container"> -->		
+     
+    <div class="row" style="margin-top: 2em;margin-bottom: 2em;">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="text-align: center;">
+    
+		<button type="button" class="btn glass" ng-click="userRegSave()" style="margin-top: 0.5em;">
+		<span class="icon far fa-check-square"></span> {{'User.save.Button' | translate }}
+		</button> 
+		
+		
+		
+		
+		<!-- <button type="button" class="btn glass" ng-click="userRegSave()" style="margin-top: 0.5em;">
+		<span class="icon far fa-check-square"></span> {{'User.save.Button' | translate }}
+		</button> -->
+	<!-- 	<a  href="#!/login"><button ng-show="loginShow" type="button" class="btn glass"  style="margin-top: 0.5em;">
+		<span class="icon far fa-arrow-left"></span>SignIn</button></a> -->
+		
+		
+		
+    </div>
+   
+   </div>
+  <!-- </div> -->
+  
+  
+  
+  
+  
+  
+</div>

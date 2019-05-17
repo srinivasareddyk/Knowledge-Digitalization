@@ -1,0 +1,250 @@
+<div ng-init = "init()" ng-controller="sfhContoller" >
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <!-- <li class="breadcrumb-item active" aria-current="page">{{pageNav}}</li> -->
+    <li><a href="#"><span style="color:#2158af">Home</span></a></li>
+  	<li class="active"><span class="breadcrumFont">CONFIGURE USER MANUAL&VIDEOS </span></li>
+   </ol>
+</nav>
+<div  class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="padding-left: 0px; padding-right: 0px;" ng-show="isError" >
+<div  class="alert alert-danger">
+ {{error}}
+</div>
+</div>
+<div class="alert alert-success" ng-show="isSuccess">
+
+ {{success}}
+
+</div>
+
+<div class="container drop-shadow" >
+ <div class="row"  >
+	<div class="col-xs-9 col-sm-6 col-md-6 col-lg-3 col_custom">
+	
+   <span class="label_custom"> {{'SFH.ITMS#.Lable' | translate }}</span>
+   <multiselect  select-items="searchItmsList" data="srchAllItms" check-id="itmsId" ></></multiselect>
+ </div>
+
+<div class="col-xs-9 col-sm-6 col-md-6 col-lg-3 col_custom">
+   <span class="label_custom"> {{'SFH.Module.Lable' | translate }}</span>
+   <multiselect  select-items="searchModuleList" data="srchAllModules" check-id="moduleId"></></multiselect>
+    </div>
+
+<div class="col-xs-9 col-sm-6 col-md-6 col-lg-3 col_custom">
+<span class="label_custom"> {{'SFH.SubModule.Lable' | translate }}</span>   
+  <multiselect  select-items="searchSubModuleList" data="srchAllSubModules" check-id="subModuleId"></></multiselect>
+ </div>
+<div class="col-xs-9 col-sm-6 col-md-6 col-lg-3 col_custom">
+   <span class="label_custom"> {{'SFH.ScreenName.Lable' | translate }}</span>
+   <multiselect select-items="searchScreenList" data="srchAllScreens" check-id="screenId"></></multiselect>
+ </div>
+
+ </div>
+ </div>
+ 
+ 
+ <!-- Search Button -->
+	
+     
+    <div class="row" style="margin-top: 2em;margin-bottom: 2em;">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="text-align: center;">
+    
+     <button type="button" class="btn glass" ng-click="searchDetails()" style="margin-top: 0.5em;">
+		<span class="icon far fa-search"></span> {{'User.search.Button' | translate }}
+		</button>
+		
+		<button type="button" class="btn glass" ng-click="searchDetails()" style="margin-top: 0.5em;">
+		<span class="icon far fa-refresh"></span> {{'common.refresh.button' | translate }}
+		</button>
+		
+		
+    </div>
+   
+   </div>
+   <!-- Display Grid -->
+   <form name="test">
+   <div>
+    <div class="container drop-shadow" >
+				<div class="table-responsive" >
+					<table st-set-filter="customFilter" st-table="formData"
+						st-safe-src="displayed"
+						class="table table-bordered table-striped" >
+						<thead>
+							<tr>
+							    <th row-select-all="rowCollection" selected="selected" ng-click="selectAllGridDetails()">
+							    </th>
+								<th st-sort="itms" scope="col"  nowrap="nowrap" style="text-align:center">{{'SFH.ITMS#.Lable' | translate }}</th>
+								<th st-sort="module" scope="col" style="text-align:center">{{'SFH.Module.Lable' | translate }}</th>
+								<th  st-sort="subModule" scope="col" nowrap="nowrap" style="text-align:center">{{'SFH.SubModule.Lable' | translate }}</th>
+								<th st-sort="selectedScreen"  scope="col" style="text-align:center">{{'SFH.ScreenName.Lable' | translate }}</th>
+								<!-- <th  scope="col"  style="text-align:center">{{'User.status.Lable' | translate }}</th> -->
+								<th   scope="col" style="text-align:center">{{'SFH.HelpDocument.Lable' | translate }}</th>
+								<th  scope="col" nowrap="nowrap" style="text-align:center">{{'SFH.fileName.Lable' | translate }}</th>
+								<th  scope="col" style="text-align:center">{{'SFH.Location.Lable' | translate }}</th>
+								<th  scope="col" style="text-align:center">{{'SFH.HelpVideos.Lable' | translate }}</th>
+								<th  scope="col" nowrap="nowrap" style="text-align:center">{{'SFH.fileName.Lable' | translate }}</th>
+								<th  scope="col" style="text-align:center">{{'SFH.Location.Lable' | translate }}</th>
+								<th  scope="col" nowrap="nowrap" style="text-align:center">{{'SFH.AlternateDocument.Lable' | translate }}</th>
+								<th  scope="col" style="text-align:center">{{'SFH.UploadAlternateDocument.Lable' | translate }}</th>
+								<th st-sort="createdTime" nowrap  scope="col" style="text-align:center;">{{'SFH.CreatedDate.Lable' | translate }}</th>
+								<th st-sort="updatedTime"  nowrap scope="col" style="text-align:center">{{'SFH.UpdatedDate.Lable' | translate }}</th>
+							</tr>					
+							
+						</thead>
+						
+						<tbody>
+						
+						<tr ng-repeat="row in formData">
+                
+                <td>
+                <input type="checkbox"  ng-model="formData[$index].isSelected" />
+                <input type="hidden" ng-model="formData[$index].rowId=$index" />
+                </td>
+                
+                <td nowrap="nowrap"> 
+                <!-- srchAllItmsForGrid -->
+            <select ng-model="formData[$index].itms" ng-show="formData[$index].isSelected" class="form-control classic" ng-options="x for x in srchAllItms">
+</select>  <span ng-show="!formData[$index].isSelected">{{formData[$index].itms}}</span>
+                </td>
+                
+                 <td nowrap="nowrap">
+             
+
+    <select ng-model="formData[$index].module" ng-show="formData[$index].isSelected" class="form-control classic">
+<option ng-repeat="md in gridAllModules | filter:{parentValue:parseInt(formData[$index].itms.split('-')[0])}:true" value="{{md.value}}">{{md.value}}</option>
+</select>           <span ng-show="!formData[$index].isSelected">{{formData[$index].module}}</span>
+                </td>
+                
+                   <td nowrap="nowrap">
+ 
+ <select ng-model="formData[$index].subModule"  ng-show="formData[$index].isSelected" class="form-control classic">
+<option ng-repeat="sm in gridAllSubModules|filter:{parentValue:parseInt((formData[$index].module).split('-')[0])}:true " value="{{sm.value}}">{{sm.value}}</option>
+</select> 
+<span ng-show="!formData[$index].isSelected">{{formData[$index].subModule}}</span>
+
+                </td>
+                      <td nowrap="nowrap">
+ <select ng-model="formData[$index].selectedScreen" ng-show="formData[$index].isSelected" class="form-control classic">
+<option ng-repeat="sc in gridAllScreens | filter:{parentValue:parseInt((formData[$index].subModule).split('-')[0])}:true " value="{{sc.value}}">{{sc.value}}</option>
+</select>
+<span ng-show="!formData[$index].isSelected">{{formData[$index].selectedScreen}}</span>
+                </td>
+ <!--  <td> <select  ng-show="formData[$index].isSelected" ng-model="formData[$index].statusSearch"  class="form-control classic" ng-options="key for (key, value) in statusList"></select>
+  <span ng-show="!formData[$index].isSelected">{{formData[$index].statusSearch}}</span>
+  </td> -->
+ <td><input type="checkbox" ng-disabled="!formData[$index].isSelected" ng-model="formData[$index].reqHelpDoc"  />{{formData[$index].isReqHelpDoc}}</td> 
+ <td> <input   ng-show="formData[$index].isSelected && formData[$index].reqHelpDoc"  type="text"	class="form-control" ng-model="formData[$index].helpDocFileName"  />
+ <span ng-show="!formData[$index].isSelected && formData[$index].reqHelpDoc ">{{formData[$index].helpDocFileName}}</span>
+ </td>              
+<td> <input type="text"	class="form-control" ng-show="formData[$index].isSelected && formData[$index].reqHelpDoc"  ng-model="formData[$index].helpDocLoc"    />
+<span ng-show="!formData[$index].isSelected && formData[$index].reqHelpDoc ">{{formData[$index].helpDocLoc}}</span>
+</td>								
+    <td><input type="checkbox" ng-disabled="!formData[$index].isSelected" ng-model="formData[$index].reqHelpVideo"  /></td>  
+    <td> <input type="text"	class="form-control" ng-show="formData[$index].isSelected && formData[$index].reqHelpVideo" ng-model="formData[$index].helpVideoFileName"    />
+    <span ng-show="!formData[$index].isSelected && formData[$index].reqHelpVideo">{{formData[$index].helpVideoFileName}}</span>
+    
+    </td>             
+<td> <input type="text"	class="form-control" ng-show="formData[$index].isSelected && formData[$index].reqHelpVideo"  ng-model="formData[$index].helpVideoLoc"  required="required"  />
+<span ng-show="!formData[$index].isSelected && formData[$index].reqHelpVideo">{{formData[$index].helpVideoLoc}}</span>
+</td>								
+   <td><input type="checkbox" ng-disabled="!formData[$index].isSelected" ng-model="formData[$index].reqAltDoc"  /></td>   
+   <td> <!-- <input type = "file" /> -->
+   <a  ng-show="{{formData[$index].reqAltDocForDisplay}}" href="http://localhost:9010/ChatBotService/sfh/downloadManFile?screenId={{parseInt((formData[$index].selectedScreen).split('-')[0])}}" target="_blank">Download</a>
+   <input type="file"	ng-show="formData[$index].isSelected && formData[$index].reqAltDoc"  file-model="myForm.files[$index]"    /> 
+    </td>
+   <td nowrap> {{formData[$index].createdTime }}	  </td>  
+   <td nowrap> {{formData[$index].updatedTime }} </td> 
+            </tr>
+						</tbody>
+		<tfoot> 
+							<tr>
+
+								<td colspan="16">
+									<div class="" st-items-by-page="10" st-pagination=""
+										st-template="views/pagination.custom.html"></div>
+									<div style="text-align: right;padding-top: 0.3em;"><span>{{'Common.total.records' | translate }} : {{ formData.length }}</span> </div> 
+								</td>
+
+							</tr>
+						</tfoot>
+				
+					</table>
+				</div>
+  </div>
+</div>
+
+<!-- Buttons -->
+
+<div class="row" style="margin-top: 2em;margin-bottom: 2em;">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="text-align: center;">
+		<button type="button" class="btn glass" ng-click="addNew()"  style="margin-top: 0.5em;">
+		<span class="icon far fa-plus"></span> {{'common.addRow.button' | translate }}
+		</button>
+		<button type="button" class="btn glass" ng-click="save(rowCollection)"  style="margin-top: 0.5em;">
+		<span class="icon far fa-save"></span> {{'common.save.button' | translate }}
+		</button>
+		<button type="button" class="btn glass" ng-click="downloadExcelSFH()"  style="margin-top: 0.5em;">
+		<span class="icon fas fa-angle-double-down"></span> {{'common.exportToExcel.button' | translate }}
+		</button>
+		    <button type="button" class="btn glass" ng-click="downloadSFHTemplate()"  style="margin-top: 0.5em;">
+		<span class="icon far fa-download"></span> {{'common.downloadTemplate.button' | translate }}
+		</button>
+		<button type="button"  ng-click="openSinglePop()"  data-toggle="modal"  data-target="#uploadModalSingle" 
+		 class="btn glass"  style="margin-top: 0.5em;">
+		<span class="icon far fa-cloud-upload"></span> {{'common.importExcel.button' | translate }}
+		</button>
+			
+		</div>
+   
+   </div>
+   
+   
+    <div  id="uploadModalSingle"  class="modal fade" role="dialog">
+              <div class="modal-dialog">
+                     <div class="modal-content">
+                           <div class="modal-header">
+                                  <div class="row">
+                                         <div class="col">
+                                                <span></span>
+                                                <h4 class="modal-title">{{'common.file.upload'| translate }}</h4>
+                                         </div>
+                                         <div class="col" style="margin-left: 34.2em; margin-top: -1.2em;">
+                                                <span class="icon far fa-times" data-dismiss="modal"></span>
+                                         </div>
+                                  </div>
+                           </div>
+                           <div class="modal-body">
+                                  <div class="row">
+                                         <div class="col">
+
+                                                <input type="file" id="single" file-model="files[0]"  name="single"
+                                                       uploader="uploader"
+                                                       onchange="angular.element(this).scope().getExcelFileDetails(this)" />
+                                         </div>
+                                  </div>
+
+                                  <div class="row">
+                                         <div class="col"></div>
+                                         <div class="col">
+                                                <button type="submit" class="btn glass"
+                                                       ng-click="excelUploadFile()" style="margin-top: 2em;">{{'common.file.upload.popup'| translate }}</button>
+                                                <button type="button" class="btn glass" data-dismiss="modal"
+                                                       style="margin-top: 2em;">{{'common.button.close'| translate }}</button>
+                                         </div>
+
+                                  </div>
+
+                                  <div class="row" ng-if="SingleMessage!=null && SingleMessage!=''">
+                                         <div class="col">
+                                                <p data-ng-show="SingleMessage" style="color: red;">{{SingleMessage | translate}}</p>
+
+                                         </div>
+                                  </div>
+
+                           </div>
+                     </div>
+              </div>
+       </div>
+</form>
+</div>
+

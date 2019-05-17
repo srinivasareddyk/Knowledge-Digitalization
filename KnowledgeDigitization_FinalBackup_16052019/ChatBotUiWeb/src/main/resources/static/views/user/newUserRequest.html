@@ -1,0 +1,70 @@
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <!-- <li class="breadcrumb-item active" aria-current="page">{{pageNav}}</li> -->
+    <li><a href="#"><span style="color:#2158af">{{'User.home.Lable' | translate }}</span></a></li>
+  	<li class="active"><span class="breadcrumFont" >{{'User.newUserRquest.Lable' | translate }}</span></li>
+   </ol>
+</nav>
+
+  <div class="container drop-shadow" >
+  <div  ng-init="init()"  class="table-responsive">
+
+				<div class="table-responsive" >
+					<table st-set-filter="customFilter" st-table="displayed"
+						st-safe-src="collection"
+						class="table table-bordered table-striped" >
+
+						<thead>
+							<tr>
+								<th st-sort="id" scope="col" style="text-align:center">{{'User.lineNo.Lable' | translate }}</th>
+								<th st-sort="wslid" scope="col" style="text-align:center">{{'User.cdsid.Lable' | translate }}</th>
+								<th st-sort="firstname" scope="col" style="text-align:center">{{'User.FirstName.Lable' | translate }}</th>
+								<th st-sort="lastname" scope="col" style="text-align:center">{{'User.LastName.Lable' | translate }}</th>
+								<th st-sort="emailid" scope="col" style="text-align:center">{{'User.email.Lable' | translate }}</th>
+								<th st-sort="" scope="col" style="text-align:center">{{'User.dateSubmitted.Lable' | translate}}</th>
+								<th></th>
+							</tr>					
+							
+						</thead>
+						<tbody>
+							<tr ng-repeat="approveRow in displayed">
+
+								<td scope="approveRow">{{approveRow.id}}</td>
+								<td>{{approveRow.cdsid}}</td>
+								<td>{{approveRow.fName}}</td>
+								<td>{{approveRow.lName}}</td>
+								<td>{{approveRow.email}}</td>
+								<td>{{approveRow.submitDate | date:'dd/MM/yyyy' }}</td>
+								<td style="padding:0px 0px 0px 0px;text-align:center;"><button type="button" class="btn glass userButton" ng-click="redirectApproval(approveRow)" style="margin-top: 0.5em;"><span class="icon fas fa-check"></span>{{'User.approveordeny.Lable' | translate }}</button>	</td>
+						</tbody>
+
+						<tfoot>
+							<tr>
+
+								<td colspan="12">
+									<div class="" st-items-by-page="10" st-pagination=""
+										st-template="views/pagination.custom.html"></div> 
+<div style="text-align: right;padding-top: 0.3em;"><span>{{'Common.total.records' | translate }} : {{ collection.length }}</span> </div>
+								</td>
+
+							</tr>
+						</tfoot>
+					</table>
+				</div>
+			</div>
+  </div>
+  
+  <!-- Search Button -->
+<!-- <div class="container">	 -->	
+     
+    <div class="row" style="margin-top: 2em;margin-bottom: 2em;">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="text-align: center;">
+    
+		<button type="button" class="btn glass" style="margin-top: 0.5em;" ng-show="isAuthorized('New User Request','Refresh')" ng-click="refreshUser()">
+		<span class="icon far fa-retweet"></span> {{'DSIDMain.refresh.Lable' | translate }}
+		</button>	
+		
+    </div>
+   
+   </div>
+  <!-- </div> -->

@@ -1,0 +1,231 @@
+<div ng-init = "init()" >
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <!-- <li class="breadcrumb-item active" aria-current="page">{{pageNav}}</li> -->
+    <li><a href="#"><span style="color:#2158af">Home</span></a></li>
+  	<li class="active"><span class="breadcrumFont">ROLE MAINTENANCE</span></li>
+   </ol>
+</nav>
+
+<div class="container" style="background: none !important;" >
+	<div class="row" id ="messages">
+	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="padding-left: 0px; padding-right: 0px;" >
+		<div id="messages_save_succ" class="alert alert-success icon far fa-check" role="alert" data-ng-show="message" ><span class="label_custom">{{ message | translate }}</span>
+				<a class="clear" ng-click="message=null"> 
+					<span  class="alertSuccess glyphicon glyphicon-remove"></span></a>
+		</div>
+	</div>
+	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="padding-left: 0px; padding-right: 0px;" data-ng-show="dsidMain.errors" ng-repeat="err in dsidMain.errors"  >
+		<div id="messages_frm_server" class="alert alert-danger icon far fa-times" role="alert" data-ng-show="err" >
+		<span class="label_custom">{{ err | translate}}</span><a class="clear"  ng-click="dsidMain.errors=null"> 
+     <span  class="alertCancel glyphicon glyphicon-remove"></span></a>
+		</div>
+		</div>
+	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="padding-left: 0px; padding-right: 0px;" >
+		
+		<div id="msgs_req_err" class="alert alert-danger icon far fa-times" role="alert" data-ng-show="reqErrs" ng-repeat="err in reqErrs"><span class="label_custom">{{ err | translate  }}</span>
+				<a class="clear" ng-click="clearMsg()"> 
+					<span  class="alertCancel glyphicon glyphicon-remove"></span></a>
+		</div>
+	</div>
+	
+	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="padding-left: 0px; padding-right: 0px;" >
+		<div id="msgs_req_leng_err" class="alert alert-danger icon far fa-times" role="alert" data-ng-show="reqErrMsg" ><span class="label_custom">{{ reqErrMsg | translate }}</span>
+				<a class="clear" ng-click="reqErrMsg=null"> 
+					<span  class="alertCancel glyphicon glyphicon-remove"></span></a>
+		</div>
+	</div>
+
+	
+</div>
+</div>
+
+<!-- Search Component -->	
+
+	<div class="container drop-shadow" >
+ 		<div class="row" >
+ 
+			<div class="col-xs-9 col-sm-6 col-md-6 col-lg-3 col_custom">
+   				<!-- <span class="label_custom"> {{'DSIDMain.DSID.Lable' | translate }} </span> -->
+   				<span class="label_custom">{{'appliMain.itmsNo.Lable' | translate }}</span>  
+				   <multiselect select-items="itmsNoSearchList" data="allItmsNoList" check-id="id1"></multiselect>
+ 			</div>
+ 
+ 			<div class="col-xs-9 col-sm-6 col-md-6 col-lg-3 col_custom">
+    			<span class="label_custom">{{'appliMain.applicationName.Lable' | translate }}</span>
+				<!-- <input type="text" ng-model="searchApplicationName"  class="form-control input-xxlarge" /> -->
+				<input type="text" list="autocomplete" ng-model="searchApplicationName" class="form-control input-xxlarge"  ng-keyup="autoComplete(searchApplicationName)">
+       					<datalist id="autocomplete">
+       					<option class="form-control" ng-repeat="proname in PNS track by $index" ng-click="fillTextbox(proname)">{{proname}}</option>
+       					</datalist>
+       					<!-- <ul class="list-group" style="z-index:2;"><li class="list-group-item" ng-repeat="proname in PNS track by $index" ng-click="fillTextbox(proname)">{{proname}}</li>
+                     </ul> -->
+			</div>
+			
+			<div class="col-xs-9 col-sm-6 col-md-6 col-lg-3 col_custom">
+    			<span class="label_custom">{{'appliMain.applicationAcronym.Lable' | translate }}</span>
+				<input type="text" ng-model="searchApplicationAcronym"  class="form-control input-xxlarge" />
+			</div>
+			
+			<div class="col-xs-9 col-sm-6 col-md-6 col-lg-3 col_custom">
+    			<span class="label_custom">{{'appliMain.applicationDesc.Lable' | translate }}</span>
+				<input type="text" ng-model="searchApplicationDesc"  class="form-control input-xxlarge" />
+			</div>
+	 </div>
+</div>
+<!-- Search Button -->
+	
+     
+    <div class="row" style="margin-top: 2em;margin-bottom: 2em;">
+    	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="text-align: center;">
+    
+     <button type="button" class="btn glass" ng-click="searchApplication(true)" style="margin-top: 0.5em;">
+		<span class="icon far fa-search"></span> {{'appliMain.search.Button' | translate }}
+		</button>
+		<button type="button" class="btn glass" ng-click="refreshApplicationMain()" style="margin-top: 0.5em;">
+		<span class="icon far fa-retweet"></span> {{'appliMain.refresh.Lable' | translate }}
+		</button>	
+		
+    </div>
+   
+   </div>
+  
+  <div>
+    <div class="container drop-shadow" >
+
+				<div class="table-responsive" >
+					<table st-set-filter="customFilter" st-table="data"
+						st-safe-src="rowCollection"
+						class="table table-bordered table-striped" >
+						<thead>
+							<tr>
+							    <th row-select-all="rowCollection" selected="selected" ng-click="selectAll(rowCollection)"></th>
+								<th st-sort="lineNo" scope="col" style="text-align:center">{{'appliMain.LineNo.Lable' | translate }}</th>
+								<th  st-sort="itmsNo" scope="col" style="text-align:center">{{'appliMain.itmsNo.Lable' | translate }}<span ng-show="asteriskFlag" style="color:#ff0000">*</span> </th> 
+								<th st-sort="applicationName" scope="col" style="text-align:center">{{'appliMain.applicationName.Lable' | translate }}<span ng-show="asteriskFlag" style="color:#ff0000">*</span> </th>
+								<th st-sort="applicationAcronym" scope="col" style="text-align:center">{{'appliMain.applicationAcronym.Lable' | translate }}<span ng-show="asteriskFlag" style="color:#ff0000">*</span> </th>
+								<th st-sort="applicationDesc" scope="col" style="text-align:center">{{'appliMain.applicationDesc.Lable' | translate }}<span ng-show="asteriskFlag" style="color:#ff0000">*</span> </th>
+								<th st-sort="createDateTime" scope="col" style="text-align:center">{{'appliMain.createdDate.Lable' | translate }}</th>
+								<th st-sort="lastUpdateDateTime" scope="col" style="text-align:center">{{'appliMain.lastUpdatedDate.Lable' | translate }}</th>
+								
+							</tr>					
+						</thead>
+						<tbody ng-if="data.length>0">
+							<tr ng-repeat="row in data">
+								<td row-select="row" ng-click="select(row.rowId)"	selectdt="row.selected"></td>
+								<td >{{row.rowId}}</td>
+								<td ng-if="(!dataadd && !row.selected)  || (row.selected && !dataadd)">{{row.itmsNo}}</td>
+								<td ng-if="dataadd || (row.selected && dataadd )">
+								<input type="text"	class="form-control" ng-model="row.itmsNo"   required limit-to="6"/></td>
+								
+								<td ng-if="!dataadd && !row.selected">{{row.applicationName}}</td>
+								<td ng-if="dataadd || row.selected"><input type="text"	class="form-control"  ng-model="row.applicationName"   required limit-to="100"  /></td>
+								
+								<td ng-if="!dataadd && !row.selected">{{row.applicationAcronym}}</td>
+								<td ng-if="dataadd || row.selected"><input type="text"	class="form-control"  ng-model="row.applicationAcronym"   required limit-to="5"  /></td>
+								
+								<td ng-if="!dataadd && !row.selected">{{row.applicationDesc}}</td>
+								<td ng-if="dataadd || row.selected"><input type="text"	class="form-control"  ng-model="row.applicationDesc"   required limit-to="200"  /></td>
+								
+								<td ng-if="!dataadd && !row.selected">{{row.createDateTime | date:'dd/MM/yyyy' }}</td>
+								<td ng-if="dataadd || row.selected">{{row.createDateTime  | date:'dd/MM/yyyy'}}</td>
+
+								<td ng-if="!dataadd && !row.selected">{{row.lastUpdateDateTime | date:'dd/MM/yyyy'}}</td>
+								<td ng-if="dataadd || row.selected">{{row.lastUpdateDateTime  | date:'dd/MM/yyyy'}}</td>
+								
+						</tbody>
+						
+
+						<tfoot>
+							<tr>
+
+								<td colspan="12">
+									<div class="" st-items-by-page="10" st-pagination=""
+										st-template="views/pagination.custom.html"></div>
+									<div style="text-align: right;padding-top: 0.3em;"><span>{{'appliMain.total.records' | translate }} : {{ rowCollection.length }}</span> </div> 
+								</td>
+
+							</tr>
+						</tfoot>
+					</table>
+				</div>
+  </div>
+ 
+  
+  <div class="row" style="margin-top: 2em;margin-bottom: 2em;">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="text-align: center;">
+        
+    
+		<button type="button" class="btn glass" ng-click="addNewAppliMaintenCntrl()" style="margin-top: 0.5em;">
+		<span class="icon far fa-plus"></span> {{'appliMain.addRow.button' | translate }}
+		</button>
+		<button type="button" class="btn glass" ng-click="saveApplicationMaintenanceCntrl(rowCollection)" style="margin-top: 0.5em;">
+		<span class="icon far fa-save"></span> {{'appliMain.save.button' | translate }}
+		</button>
+		<button type="button" class="btn glass" ng-click="downloadExcelAppliMaintenCntrl()" style="margin-top: 0.5em;">
+		<span class="icon fas fa-angle-double-down"></span> {{'appliMain.exportToExcel.button' | translate }}
+		</button>
+		<button type="button"  ng-click="openSinglePop()" data-toggle="modal"  data-target="#uploadModalSingle" 
+		 class="btn glass"  style="margin-top: 0.5em;">
+		<span class="icon far fa-cloud-upload"></span> {{'appliMain.importExcel.button' | translate }} 
+		</button>
+		<button type="button" class="btn glass" ng-click="DownloadTemplateAppliMainten()" style="margin-top: 0.5em;">
+		<span class="icon far fa-download"></span> {{'appliMain.downloadTemplate.button' | translate }}
+		</button>	
+		</div>
+		
+   
+   
+   </div>
+   
+   
+  </div>
+  
+    <div  id="uploadModalSingle" class="modal fade" role="dialog">
+              <div class="modal-dialog">
+                     <div class="modal-content">
+                           <div class="modal-header">
+                                  <div class="row">
+                                         <div class="col">
+                                                <span></span>
+                                                <h4 class="modal-title">{{'appliMain.file.upload'| translate }}</h4>
+                                         </div>
+                                         <div class="col" style="margin-left: 34.2em; margin-top: -1.2em;">
+                                                <span class="icon far fa-times" data-dismiss="modal"></span>
+                                         </div>
+                                  </div>
+                           </div>
+                           <div class="modal-body">
+                                  <div class="row">
+                                         <div class="col">
+
+                                                <input type="file" id="single" ng-model="file" name="single" multiple
+                                                       uploader="uploader"
+                                                       onchange="angular.element(this).scope().getExcelFileDetails(this)" />
+
+                                         </div>
+                                  </div>
+
+                                  <div class="row">
+                                         <div class="col"></div>
+                                         <div class="col">
+                                                <button type="submit" class="btn glass"
+                                                       ng-click="excelUploadFile()" style="margin-top: 2em;">{{'appliMain.file.upload.popup'| translate }}</button>
+                                                <button type="button" class="btn glass" data-dismiss="modal"
+                                                       style="margin-top: 2em;">{{'appliMain.button.close'| translate }}</button>
+                                         </div>
+
+                                  </div>
+
+                                  <div class="row" ng-if="SingleMessage!=null && SingleMessage!=''">
+                                         <div class="col">
+                                                <p data-ng-show="SingleMessage" style="color: red;">{{SingleMessage | translate}}</p>
+
+                                         </div>
+                                  </div>
+
+                           </div>
+                     </div>
+              </div>
+       </div>
+</div>

@@ -1,0 +1,20 @@
+
+<!-- <div class="container">
+<div class="row">
+
+<div class="col-3"></div>
+<div class="col-8" style="text-align:center;"> -->
+<nav ng-if="pages.length >= 2">
+  <ul class="datatable" style="list-style: none;"> 	
+    <li><a ng-click="selectPage(1)">First</a>
+    </li><li><a  ng-click="selectPage(currentPage - 1)">&lt;</a>
+    </li><li><a style="width: 90px;height: 34px;padding-top:4px;"><page-select style="color:#191717;"></page-select> </a>
+    </li><li><a>of {{numPages}}</a>
+    </li><li><a ng-click="selectPage(currentPage + 1)">&gt;</a>
+    </li><li><a  ng-click="selectPage(numPages)">Last</a></li>
+  </ul>
+</nav>
+<!-- </div>
+<div class="col-1"></div>
+</div>
+</div> -->

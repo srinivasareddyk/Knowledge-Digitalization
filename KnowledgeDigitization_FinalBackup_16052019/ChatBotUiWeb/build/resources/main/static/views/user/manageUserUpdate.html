@@ -1,0 +1,124 @@
+
+<div ng-init="init()"><nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <!-- <li class="breadcrumb-item active" aria-current="page">{{pageNav}}</li> -->
+    <li><a href="#"><span style="color:#2158af">{{'User.home.Lable' | translate }}</span></a></li>
+    <li class="active"><span style="color:#2158af">{{'User.manageUser.Lable' | translate }}</span></li>
+  	<li class="active"><span style="color:#2158af">{{'User.updateuser.Lable' | translate }}</span></li>
+   </ol>
+</nav>
+
+<div>
+<div class="row" >
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="padding-left: 0px; padding-right: 0px;"   >
+<div id="messages_save_succ" class="alert alert-success icon far fa-check" role="alert" data-ng-show="message" ><span class="label_custom">{{message | translate }}</span>
+			<a class="clear" ng-click="message=null"> 
+				<span  class="alertSuccess glyphicon glyphicon-remove"></span></a>
+			</div>	
+			</div>
+			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="padding-left: 0px; padding-right: 0px;" >
+              <div id="messages_save_error" class="alert alert-danger icon far fa-times" role="alert" data-ng-show="reqErrMsg" ><span class="label_custom">{{ reqErrMsg | translate  }}</span>
+                           <a class="clear" ng-click="reqErrMsg=null"> 
+                         <span  class="alertCancel glyphicon glyphicon-remove"></span></a>
+              </div>
+       </div>
+			
+	
+</div>
+
+<div class="container drop-shadow" style="margin-top: 2em;">
+ 
+  <div class="row" ng-form name="myForm" >
+ 
+    <div class="col-xs-9 col-sm-6 col-md-6 col-lg-3 col_custom">
+    <span class="label_custom">{{'User.CdsID.Lable' | translate }}</span> 
+				<input type="text" ng-model="manageUser.cdsid" name="wslId" ng-keyup="reqErrMsg=null;succMessage=null" ng-disabled="true" class="form-control input-xxlarge" 
+				ng-minlength="8"  maxlength="8"  />
+    </div>
+  <div class="col-xs-9 col-sm-6 col-md-6 col-lg-3 col_custom">
+	<span class="label_custom">{{'User.FirstName.Lable' | translate }}</span> 
+	<input type="text" ng-model="manageUser.fName" class="form-control" ng-disabled="true">
+	</div>
+  <div class="col-xs-9 col-sm-6 col-md-6 col-lg-3 col_custom">
+	<span class="label_custom">{{'User.LastName.Lable' | translate }}</span> 
+	<input type="text" ng-model="manageUser.lName" class="form-control" ng-disabled="true">
+	</div>
+ <div class="col-xs-9 col-sm-6 col-md-6 col-lg-3 col_custom">
+	<span class="label_custom">{{'User.email.Lable' | translate }} </span> 
+	<input type="text" ng-model="manageUser.email" class="form-control" ng-disabled="true">
+ </div>
+ <div class="col-xs-9 col-sm-6 col-md-6 col-lg-3 col_custom">
+    <span class="label_custom">{{'User.workPhone.Lable' | translate }}</span> 
+	<input type="text" ng-model="manageUser.wPhone" class="form-control" ng-disabled="true"/>
+	</div>
+  <div class="col-xs-9 col-sm-6 col-md-6 col-lg-3 col_custom">
+	<span class="label_custom">{{'User.addr1.Lable' | translate }}</span> 
+	<input type="text" ng-model="manageUser.addr1" class="form-control" ng-disabled="true">
+	</div>
+  <div class="col-xs-9 col-sm-6 col-md-6 col-lg-3 col_custom">
+	<span class="label_custom">{{'User.addr2.Lable' | translate }}</span>
+	<input type="text" ng-model="manageUser.adrr2" class="form-control" limit-to="200" >
+	</div>
+<div class="col-xs-9 col-sm-6 col-md-6 col-lg-3 col_custom">
+	<span class="label_custom">{{'User.city.Lable' | translate }}</span><span style="color:red;">*</span>
+	<input type="text" ng-model="manageUser.city" class="form-control" limit-to="25" >
+</div>
+ <div class="col-xs-9 col-sm-6 col-md-6 col-lg-3 col_custom">
+    <span class="label_custom">{{'User.state.Lable' | translate }}</span>
+	<input type="text" ng-model="manageUser.state" class="form-control" limit-to="25" />
+  </div>
+  <div class="col-xs-9 col-sm-6 col-md-6 col-lg-3 col_custom">
+	<span class="label_custom">{{'User.pCode.Lable' | translate }}</span>
+	<input type="text" ng-model="manageUser.pCode" class="form-control" limit-to="10" >
+	</div>
+  <div class="col-xs-9 col-sm-6 col-md-6 col-lg-3 col_custom">
+	<span class="label_custom">{{'User.country.Lable' | translate }}</span><span style="color:red;">*</span>
+	<select ng-model="manageUser.country" class="form-control classic" ng-options="x.value for x in countries track by x.key" ></select>
+	</div>
+ <div class="col-xs-9 col-sm-6 col-md-6 col-lg-3 col_custom">
+	<span class="label_custom">{{'User.lang.Lable' | translate }}</span><span style="color:red;">*</span>
+	<select ng-model="manageUser.lang" class="form-control classic" ng-options="x.value for x in languages track by x.key" ></select>
+ </div>
+	
+	<div class="col-xs-9 col-sm-6 col-md-6 col-lg-3 col_custom">
+   <span class="label_custom"> {{'User.role.Lable' | translate }}</span><span style="color:red;">*</span>
+   <select ng-model="manageUser.role" name="users" class="form-control classic" ng-options="sta.value for sta in roleUserList track by sta.key" ></select>
+ </div>
+<!-- <div class="col-xs-9 col-sm-6 col-md-6 col-lg-3 col_custom">
+   <span class="label_custom"> {{'common.area.Lable' | translate }}</span><span style="color:red;">*</span>
+   <multiselect select-items="areaSelectedList" data="allAreaList" check-id="id1" ></></multiselect>
+ </div>  -->
+ <div class="col-xs-9 col-sm-6 col-md-6 col-lg-3 col_custom">
+   <span class="checkbox"> {{'User.disableUser.Lable' | translate }}</span>
+   <input type="checkbox" ng-model="manageUser.disableFlag" ng-checked="manageUser.disableFlag" ng-change=changeDisable()> 
+ </div>
+ 
+</div>
+</div>
+
+
+
+ 
+ <!-- <div class="container">	 -->	
+     
+    <div class="row" style="margin-top: 2em;margin-bottom: 2em;">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" style="text-align: center;">
+    
+		<button type="button" class="btn glass" ng-click="saveUser()" ng-show="isAuthorized('Manage Users Update','Update')" style="margin-top: 0.5em;">
+		<span class="icon far fa-check-square"></span> {{'User.update.Button' | translate }}
+		</button>
+		<button type="button" class="btn glass" ng-click="redirectToBack()" style="margin-top: 0.5em;">
+		<span class="icon far fa-arrow-left"></span> {{'User.back.Button' | translate }}</button>
+		
+		
+    </div>
+   
+   </div>
+ <!--  </div> -->
+  
+  
+  
+  
+  
+</div>
+</div>
